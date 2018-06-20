@@ -3,14 +3,14 @@
     <head>
         <meta http-equiv = "content-type" content = "text/html; charset=UTF-8">
         <title>MVC FRONT</title>
-        <link href="<?= BASE; ?>assets/css/bootstrap.min.css" rel="stylesheet">
-        <link href="<?= BASE; ?>assets/css/font-awesome.css" rel="stylesheet">
+        <link href="<?= base_url('/assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
+        <link href="<?= base_url('/assets/css/font-awesome.css'); ?>" rel="stylesheet">
 
-        <script src="<?= BASE; ?>assets/js/jquery.js"></script>
-        <script src="<?= BASE; ?>assets/js/bootstrap.min.js"></script>
+        <script src="<?= base_url('/assets/js/jquery.js'); ?>"></script>
+        <script src="<?= base_url('/assets/js/bootstrap.min.js'); ?>"></script>
 
         <script type="text/javascript">
-            var BASE = '<?php echo BASE; ?>';
+            var BASE = '<?php echo base_url(); ?>';
         </script>
     </head>
     <body>
@@ -26,7 +26,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?= BASE; ?>">Luciano Charles</a>
+                    <a class="navbar-brand" href="<?= base_url(); ?>">Luciano Charles</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -35,15 +35,15 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" <span class="caret">Clientes</span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?= BASE; ?>clients">Listar</a></li>
-                                <li><a href="<?= BASE; ?>clients/add">Adicionar</a></li>
+                                <li><a href="<?= base_url('clients'); ?>">Listar</a></li>
+                                <li><a href="<?= base_url('clients/add'); ?>">Adicionar</a></li>
                                 <!-- <li role="separator" class="divider"></li> -->
                             </ul>
                         </li>
 
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="<?php echo BASEADMIN; ?>">Painel</a></li>
+                        <li><a href="<?php echo base_url('/painel'); ?>">Painel</a></li>
                     </ul>
 
                 </div><!-- /.navbar-collapse -->
