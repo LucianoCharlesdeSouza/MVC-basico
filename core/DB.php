@@ -20,8 +20,8 @@ class DB {
             if (self::$conn == null) {
 
                 self::$conn = new PDO("mysql:dbname=" . $db['database'] . ";host=" . $db['host'], $db['username'], $db['password'], $db['options']);
-                self::$conn->setAttribute(PDO::ATTR_ERRMODE, database('errmode'));
-                self::$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, database('fetch_mode'));
+                self::$conn->setAttribute(PDO::ATTR_ERRMODE, $db['errmode']);
+                self::$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, $db['fetch_mode']);
             }
         } catch (PDOException $e) {
             throw new PDOException("Reveja suas credênciais de conexão ao banco de dados!<br />Contate o administrador!");
