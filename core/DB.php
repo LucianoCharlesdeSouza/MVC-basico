@@ -16,9 +16,10 @@ class DB {
      */
     private static function connect() {
         try {
+            $db = database();
             if (self::$conn == null) {
 
-                self::$conn = new PDO("mysql:dbname=" . database('database') . ";host=" . database('host'), database('username'), database('password'), database('options'));
+                self::$conn = new PDO("mysql:dbname=" . $db['database'] . ";host=" . $db['host'], $db['username'], $db['password'], $db['options']);
                 self::$conn->setAttribute(PDO::ATTR_ERRMODE, database('errmode'));
                 self::$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, database('fetch_mode'));
             }
