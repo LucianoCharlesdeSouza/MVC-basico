@@ -8,10 +8,10 @@ if (!function_exists('database')) {
 
         if ($app['environment'] === 'development') {
 
-            return ($key != null) ? $app['connections']['development'][$key] : $app['connections']['development'];
+            return (isset($key)) ? $app['connections']['development'][$key] : $app['connections']['development'];
         }
 
-        return ($key != null) ? $app['connections']['production'][$key] : $app['connections']['production'];
+        return (isset($key)) ? $app['connections']['production'][$key] : $app['connections']['production'];
     }
 
 }
