@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_erros', 1);
 error_reporting(E_ALL);
 
-require './config.php';
+require './core/Functions.php';
 
 spl_autoload_register(function ($class) {
     if (file_exists('controllers/' . $class . '.php')) {
@@ -20,4 +20,3 @@ spl_autoload_register(function ($class) {
 
 $core = new Core();
 $core->run();
-
