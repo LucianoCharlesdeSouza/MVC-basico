@@ -3,18 +3,17 @@
     <head>
         <meta http-equiv = "content-type" content = "text/html; charset=UTF-8">
         <title>MVC PAINEL</title>
-        <link href="<?= BASEADMIN; ?>assets/css/bootstrap.min.css" rel="stylesheet">
-        <link href="<?= BASEADMIN; ?>assets/css/font-awesome.css" rel="stylesheet">
+        <link href="<?= base_url('/assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
+        <link href="<?= base_url('/assets/css/font-awesome.css'); ?>" rel="stylesheet">
 
-        <script src="<?= BASEADMIN; ?>assets/js/jquery.js"></script>
-        <script src="<?= BASEADMIN; ?>assets/js/bootstrap.min.js"></script>
+        <script src="<?= base_url('/assets/js/jquery.js'); ?>"></script>
+        <script src="<?= base_url('/assets/js/bootstrap.min.js'); ?>"></script>
 
         <script type="text/javascript">
-            var BASE = '<?php echo BASEADMIN; ?>';
+            var BASE = '<?php echo base_url(); ?>';
         </script>
     </head>
     <body>
-
 
         <nav class="navbar navbar-default navbar-inverse">
             <div class="container-fluid">
@@ -26,7 +25,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?= BASEADMIN; ?>">Luciano Charles</a>
+                    <a class="navbar-brand" href="<?= back_url('home'); ?>">Luciano Charles</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -35,8 +34,8 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" <span class="caret">Clientes</span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?= BASEADMIN; ?>clients">Listar</a></li>
-                                <li><a href="<?= BASEADMIN; ?>clients/add">Adicionar</a></li>
+                                <li><a href="<?= base_url('/clients'); ?>">Listar</a></li>
+                                <li><a href="<?= base_url('/clients/add '); ?>">Adicionar</a></li>
                                 <!-- <li role="separator" class="divider"></li> -->
                             </ul>
                         </li>
