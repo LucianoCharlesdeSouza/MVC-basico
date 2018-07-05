@@ -34,7 +34,6 @@ return [
             'unix_socket' => null,
             'options' => [
                 PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
-//                'SET GLOBAL time_zone = "+03:00"'
             ],
             'errmode' => PDO::ERRMODE_EXCEPTION,
             'fetch_mode' => PDO::FETCH_OBJ
