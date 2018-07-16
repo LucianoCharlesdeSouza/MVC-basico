@@ -1,8 +1,10 @@
 <?php
 
-class clientsController extends Controller {
+class clientsController extends Controller 
+{
 
-    public function index() {
+    public function index() 
+    {
         $dados = [];
         $this->loadTemplate("Clientes/index", $dados);
     }
