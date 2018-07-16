@@ -26,8 +26,8 @@ Estrutura básica MVC
 
 # $this->post($field,$filter);
 <p>Função usada nos controllers onde recebe dados via $_POST e, pode receber um filter e ja retornar os dados tratados e sanitizados</p>
-<p>Uso : $nome = $this->post('idade','int')</p>
+<p>Uso : $idade = $this->post('idade','int')</p>
 
 # $this->get($field,$filter);
 <p>Função usada nos controllers onde recebe dados via $_GET e, pode receber um filter e ja retornar os dados tratados e sanitizados</p>
-<p>Uso : $nome = $this->get('idade','int')</p>
+<p>Uso : $idade = $this->get('idade','int')</p>
