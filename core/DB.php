@@ -6,7 +6,8 @@
  * Retorna um objeto PDO pelo método estático getConn();
  */
 
-class DB {
+class DB 
+{
 
     private static $conn = null;
 
@@ -14,7 +15,8 @@ class DB {
      * Retorna objeto PDO
      * @return null|PDO
      */
-    private static function connect() {
+    private static function connect() 
+    {
         try {
             $db = database();
             if (self::$conn == null) {
@@ -33,7 +35,8 @@ class DB {
      * Executa método connect()
      * @return null|PDO
      */
-    public static function getConn() {
+    public static function getConn() 
+    {
         return static::connect();
     }
 
@@ -41,8 +44,8 @@ class DB {
      * Construtor do tipo privado previne que uma nova instância da
      * Classe seja criada através do operador `new` de fora dessa classe.
      */
-    private function __construct() {
-
+    private function __construct() 
+    {
     }
 
     /**
@@ -51,8 +54,8 @@ class DB {
      *
      * @return void
      */
-    private function __clone() {
-
+    private function __clone() 
+    {
     }
 
     /**
@@ -63,7 +66,8 @@ class DB {
      *
      * @return void
      */
-    private function __wakeup() {
+    private function __wakeup() 
+    {
         static::getConn();
     }
 
