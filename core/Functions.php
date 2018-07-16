@@ -54,3 +54,14 @@ if (!function_exists('back_url')) {
     }
 
 }
+
+if (!function_exists('html')) {
+
+    function html($data)
+    {
+        $data = str_replace('<script>', '', str_replace('</script>', '', str_replace('<?php', '', str_replace('?>', '', $data))));
+
+        return htmlentities($data);
+    }
+
+}
