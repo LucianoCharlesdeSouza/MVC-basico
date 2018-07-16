@@ -1,8 +1,10 @@
 <?php
 
-class homeController extends Controller {
+class homeController extends Controller 
+{
 
-    public function index() {
+    public function index() 
+    {
         $dados = [];
         $this->loadTemplate('home', $dados);
     }
