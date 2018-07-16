@@ -5,7 +5,7 @@ Estrutura básica MVC
 
 # base_url($path);
 <p>Função que retorna a url do projeto</p>
-<p>Uso em links css ou js: <link href="<?php echo base_url('/assets/css/bootstrap.min.css'); ?>" rel="stylesheet"></p>
+<p>Uso em links css ou js passados nos href ou src: base_url('/assets/css/bootstrap.min.css');</p>
 
 # database($key);
 <p>Função que retorna um array com os indices das confg para acesso ao banco de dados!</p>
@@ -18,7 +18,7 @@ Estrutura básica MVC
 
 # back_url($path = null);
 <p>Função que retorna a url raiz do projeto para que quando estivermos no painel pudermos voltar a home do site por exemplo</p>
-<p>Uso: <a class="navbar-brand" href="<?php echo back_url('home'); ?>">Retonar para o home</a></p>
+<p>Uso: passados nos href de ancoras "<a>": back_url('home');</p>
 
 # html($data);
 <p>Função que transforma todo conteudo em html, evitando assim a execução de scripts maliciosos</p>
