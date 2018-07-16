@@ -61,7 +61,7 @@ if (!function_exists('html')) {
     {
         $data = str_replace('<script>', '', str_replace('</script>', '', str_replace('<?php', '', str_replace('?>', '', $data))));
 
-        return htmlentities($data);
+        return htmlentities($data, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     }
 
 }
