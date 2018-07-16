@@ -1,9 +1,12 @@
 <?php
 
-class Users extends Model {
-
-    public function findAll() {
-        $sql = "SELECT * FROM usuarios";
+class Users extends Model 
+{
+    private $table = 'usuarios';
+    
+    public function findAll() 
+    {
+        $sql = "SELECT * FROM ".$this->table;
         $stmt = $this->db->prepare($sql);
 
         try {
