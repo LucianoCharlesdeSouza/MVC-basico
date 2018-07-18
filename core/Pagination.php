@@ -58,6 +58,19 @@ trait Pagination
         }
         $this->max_links = (int) $maxlinks;
     }
+    
+    /**
+     * Método que retorna
+     * os itens para a paginação
+     * @return array
+     */
+    public function paginate()
+    {
+        $Query = "SELECT * FROM {$this->table}";
+        $this->getIndexPage();
+        $this->query .= $Query . " LIMIT " . $this->index_page . "," . $this->max_page;
+        return $this->FullQuery($this->query, $this->places);
+    }
 
     /**
      * Método que recebe uma string SQL para retornar
