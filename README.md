@@ -26,12 +26,6 @@ Estrutura básica MVC
 
 # requestValue($name);
 <p>Função que retorna o valor do REQUEST (GET/POST) caso exista</p>
-    # Uso
-    <form enctype="multipart/form-data" method="post" action="">
-        <input type="file" name="imagem[]" multiple="">
-        <input type="submit" value="Fazer Upload">
-    </form>
-
 
 # $this->post($field,$filter);
 <p>Função usada nos controllers onde recebe dados via $_POST e, pode receber um filter e ja retornar os dados tratados e sanitizados</p>
