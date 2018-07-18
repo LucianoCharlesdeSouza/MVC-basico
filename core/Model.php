@@ -192,7 +192,7 @@ class Model
 
                 $fetch_mode = $db['fetch_mode'];
 
-                return ($fetch_mode == 5) ? $sql->fetch()->max_id : $sql->fetch()['max_id'];
+                return ($fetch_mode == 5) ? $stmt->fetch()->max_id : $stmt->fetch()['max_id'];
             }
         } catch (PDOException $e) {
 
