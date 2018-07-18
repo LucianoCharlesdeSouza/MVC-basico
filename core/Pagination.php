@@ -25,7 +25,7 @@ trait Pagination
      * @param $max int
      * @throws Exception
      */
-    public function MaxPerPage($max)
+    public function maxPerPage($max)
     {
         if (!is_int($max) || !is_numeric($max)) {
             throw new Exception("Passe um valor inteiro para o máximo de registro por páginas!");
@@ -38,7 +38,7 @@ trait Pagination
      * @param $name_page string
      * @throws Exception
      */
-    public function Page($name_page)
+    public function page($name_page)
     {
         if (!is_string($name_page)) {
             throw new Exception("O nome do paginador deve ser tipo string!");
@@ -51,22 +51,22 @@ trait Pagination
      * @param $maxlinks int
      * @throws Exception
      */
-    public function MaxLinks($maxlinks)
+    public function maxLinks($maxlinks)
     {
         if (!is_int($maxlinks) || !is_numeric($maxlinks)) {
             throw new Exception("Passe um valor para o máximo de links!");
         }
         $this->max_links = (int) $maxlinks;
     }
-    
+
     /**
      * Método que retorna
      * os itens para a paginação
      * @return array
      */
-    public function paginate()
+    public function paginate($where = null)
     {
-        $Query = "SELECT * FROM {$this->table}";
+        $Query = "SELECT * FROM {$this->table} {$where}";
         $this->getIndexPage();
         $this->query .= $Query . " LIMIT " . $this->index_page . "," . $this->max_page;
         return $this->FullQuery($this->query, $this->places);
@@ -78,7 +78,7 @@ trait Pagination
      * @param $Query string
      * @return array
      */
-    public function CreatePagination($Query)
+    public function createPagination($Query)
     {
         $this->getIndexPage();
         $this->query .= $Query . " LIMIT " . $this->index_page . "," . $this->max_page;
@@ -89,7 +89,7 @@ trait Pagination
      * Método que recebe um array para usar como substitutos no Bind
      * @param array $places_values
      */
-    public function Places(array $places_values)
+    public function places(array $places_values)
     {
         $this->places = $places_values;
     }
@@ -98,7 +98,7 @@ trait Pagination
      * Método que gera os links de paginação
      * @return string
      */
-    public function CreateLinks()
+    public function createLinks()
     {
         $this->pagingNumberExceeded();
         if ($this->totalRecords() > $this->max_page) {
