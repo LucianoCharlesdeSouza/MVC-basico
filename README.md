@@ -26,7 +26,7 @@ Estrutura básica MVC
 
 # requestValue($name);
 <p>Função que retorna o valor do REQUEST (GET/POST) caso exista</p>
-<p>Uso:     <?php echo htmlspecialchars('<input type="text" name="nome" value="<?php echo requestValue("nome");?>" />'); ?></p>
+
 
 # $this->post($field,$filter);
 <p>Função usada nos controllers onde recebe dados via $_POST e, pode receber um filter e ja retornar os dados tratados e sanitizados</p>
