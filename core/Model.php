@@ -3,6 +3,8 @@
 class Model
 {
 
+    use Pagination;
+
     protected $db;
 
     public function __construct()
