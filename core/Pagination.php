@@ -58,6 +58,19 @@ trait Pagination
         }
         $this->max_links = (int) $maxlinks;
     }
+    
+        /**
+     * Método que recebe uma string SQL,
+     * podendo ou não receber também um array para as substituições
+     * no Bind
+     * @param $Query string
+     * @param array|null $Fields
+     * @return array
+     */
+    public function fullQuery($query, array $fields = null)
+    {
+        return $this->FullSql($query, $fields);
+    }
 
     /**
      * Método que retorna
