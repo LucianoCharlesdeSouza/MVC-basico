@@ -98,5 +98,19 @@ if (!function_exists('requestValue')) {
     {
         return (isset($_REQUEST[$name])) ? $_REQUEST[$name] : '';
     }
+    
+}
+
+/*
+ * Função que retorna o var_dump formatado
+ */
+if (!function_exists('dd')) {
+
+    function dd($value)
+    {
+        echo "<pre>";
+        var_dump($value);
+        exit();
+    }
 
 }
