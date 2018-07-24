@@ -10,7 +10,7 @@ if (!function_exists('database')) {
     function database($key = null)
     {
 
-        $app = include 'config/database.php';
+        $app = include dirname(__DIR__) . '/config/database.php';
 
         if ($app['environment'] === 'development') {
 
@@ -31,7 +31,7 @@ if (!function_exists('environment')) {
     function environment($key)
     {
 
-        $app = include 'config/environment.php';
+        $app = include dirname(__DIR__) . '/config/environment.php';
 
         return $app[$key];
     }
