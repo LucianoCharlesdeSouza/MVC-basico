@@ -46,7 +46,7 @@ class Model
 
             if ($stmt->rowCount() > 0) {
 
-                return $stmt->fetchAll();
+                return $stmt->fetch();
             }
         } catch (PDOException $e) {
 
