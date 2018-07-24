@@ -58,8 +58,21 @@ trait Pagination
         }
         $this->max_links = (int) $maxlinks;
     }
-    
-        /**
+
+    /**
+     * Método que retorna
+     * os itens para a paginação
+     * @return array
+     */
+    public function paginate($where = null)
+    {
+        $Query = "SELECT * FROM {$this->table} {$where}";
+        $this->getIndexPage();
+        $this->query .= $Query . " LIMIT " . $this->index_page . "," . $this->max_page;
+        return $this->FullSql($this->query, $this->places);
+    }
+
+    /**
      * Método que recebe uma string SQL,
      * podendo ou não receber também um array para as substituições
      * no Bind
@@ -73,19 +86,6 @@ trait Pagination
     }
 
     /**
-     * Método que retorna
-     * os itens para a paginação
-     * @return array
-     */
-    public function paginate($where = null)
-    {
-        $Query = "SELECT * FROM {$this->table} {$where}";
-        $this->getIndexPage();
-        $this->query .= $Query . " LIMIT " . $this->index_page . "," . $this->max_page;
-        return $this->FullQuery($this->query, $this->places);
-    }
-
-    /**
      * Método que recebe uma string SQL para retornar
      * os itens para a paginação
      * @param $Query string
@@ -95,7 +95,7 @@ trait Pagination
     {
         $this->getIndexPage();
         $this->query .= $Query . " LIMIT " . $this->index_page . "," . $this->max_page;
-        return $this->FullQuery($this->query, $this->places);
+        return $this->FullSql($this->query, $this->places);
     }
 
     /**
@@ -157,7 +157,7 @@ trait Pagination
      * @param array|null $Fields
      * @return array
      */
-    private function FullQuery($Query, array $Fields = null)
+    private function FullSql($Query, array $Fields = null)
     {
         try {
             $stmt = $this->db->prepare($Query);
@@ -196,7 +196,7 @@ trait Pagination
         $db = database();
 
         $fetch_mode = $db['fetch_mode'];
-        return ($fetch_mode == 5) ? $this->FullQuery($this->query_count, $this->places)[0]->total : $this->FullQuery($this->query_count, $this->places)[0]['total'];
+        return ($fetch_mode == 5) ? $this->FullSql($this->query_count, $this->places)[0]->total : $this->FullSql($this->query_count, $this->places)[0]['total'];
     }
 
     /**
