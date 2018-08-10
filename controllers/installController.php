@@ -152,7 +152,7 @@ class installController extends Controller
         $class .= '<div class = "links">' . PHP_EOL;
         $class .= '<a href = "https://github.com/LucianoCharlesdeSouza" target = "_blank">GitHub</a>' . PHP_EOL;
         $class .= '<a href = "https://www.youtube.com/channel/UC2bpyhuQp3hWLb8rwb269ew?view_as=subscriber" target = "_blank">YouTube</a>' . PHP_EOL;
-        $class .= ' <a href = "<?php echo base_url("/make/controller") ?>" target = "_blank">Make Controller/View</a>' . PHP_EOL;
+        $class .= ' <a href = "<?php echo base_url("/make") ?>" target = "_blank">Make Controller/View and Models</a>' . PHP_EOL;
         $class .= '</div>' . PHP_EOL;
         $class .= '</div>' . PHP_EOL;
         $class .= '</div>' . PHP_EOL;
