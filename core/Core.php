@@ -3,7 +3,7 @@
  * Class Core
  * 
  * @author Bonieky Lacerda
- * Site: https://alunos.b7web.com.br/login
+ * Site: http://b7web.com.br
  */
 class Core
 {
