@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Class Core
+ * 
+ * @author Bonieky Lacerda
+ * Site: https://alunos.b7web.com.br/login
+ */
 class Core
 {
 
