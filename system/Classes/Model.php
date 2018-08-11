@@ -36,7 +36,7 @@ class Model
      * @param int $limit
      * @return array|mixed
      */
-    public function findAll($where = null, $bindValue = null, $limit = 1)
+    public function findAll($where = null, $bindValue = null, $limit = 0)
     {
         $sql = "SELECT * FROM " . $this->table . " " . $where;
         if ($limit) {
