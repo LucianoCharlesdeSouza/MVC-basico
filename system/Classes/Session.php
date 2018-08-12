@@ -123,6 +123,22 @@ class Session
     {
         return ( isset($_SESSION['SESSION_FLASH'][$name]) ) ? true : false;
     }
+    
+    /**
+     * Método que gera o html para o retorno das msg do Ajax
+     * @return string
+     */
+    public static function box_ajax_msg()
+    {
+        $box = '<div style="position: fixed;right: 10px;top: 30px;';
+        $box .= 'width: 360px;max-width: 80%;padding: 10px 20px 10px 20px;';
+        $box .= 'cursor: pointer;z-index: 9999;margin-bottom: 20px;" class="alerta ">';
+        $box .= ' <h4><i class="icon icones "></i><span class="titulo"></span></h4>';
+        $box .= ' <div class="result"></div>';
+        $box .= ' </div>';
+
+        return $box;
+    }
 
     /**
      * Método que gera o html para o retorno das msg de sessão
