@@ -112,9 +112,8 @@ if (!function_exists('html')) {
 
     function html($data)
     {
-        $data = str_replace('<script>', '', str_replace('</script>', '', str_replace('<?php', '', str_replace('?>', '', str_replace('<?=', '', $data)))));
-
-        return htmlentities($data, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $data = str_replace('<?php', '', str_replace('?>', '', str_replace('<?=', '', $data)));
+        return htmlentities(stripTags($data), ENT_QUOTES | ENT_HTML5, 'UTF-8');
     }
 
 }
