@@ -27,6 +27,21 @@ if (!function_exists('redirect')) {
 }
 
 /*
+ * Função que redireciona a página após um determinado tempo
+ */
+
+if (!function_exists('redirect_after')) {
+
+    function redirect_after($to = null, $time = 3)
+    {
+        header("Refresh: " . $time . ";url=" . base_url($to));
+        exit();
+    }
+
+}
+
+
+/*
  * Função que recupera os valores do request
  */
 
