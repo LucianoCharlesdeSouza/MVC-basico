@@ -112,7 +112,7 @@ if (!function_exists('html')) {
 
     function html($data)
     {
-        $data = str_replace('<script>', '', str_replace('</script>', '', str_replace('<?php', '', str_replace('?>', '', $data))));
+        $data = str_replace('<script>', '', str_replace('</script>', '', str_replace('<?php', '', str_replace('?>', '', str_replace('<?=', '', $data)))));
 
         return htmlentities($data, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     }
@@ -120,15 +120,103 @@ if (!function_exists('html')) {
 }
 
 /*
- * Função que retorna o var_dump formatado
+ * Função que retorna o do_dump formatado
  */
 if (!function_exists('dd')) {
 
-    function dd($value)
+    function dd(&$var, $info = false)
     {
-        echo "<pre>";
-        var_dump($value);
-        exit();
+        $scope = false;
+        $prefix = 'unique';
+        $suffix = 'value';
+
+        if ($scope)
+            $vals = $scope;
+        else
+            $vals = $GLOBALS;
+
+        $old = $var;
+        $var = $new = $prefix . rand() . $suffix;
+        $vname = false;
+        foreach ($vals as $key => $val)
+            if ($val === $new)
+                $vname = $key;
+        $var = $old;
+        echo "<pre style='margin: 0px 0px 10px 0px; display: block; background: black; color: white; font-family: Verdana; border: 1px solid #cccccc; padding: 5px; font-size: 12px; line-height: 15px;'>";
+        if ($info != false)
+            echo "<strong style='color:#a2e80b;'>$info:</strong><br />";
+        do_dump($var, $vname);
+        echo "</pre>";
+    }
+
+}
+
+/*
+ * Função que retorna o debug formatado
+ */
+if (!file_exists('do_dump')) {
+
+    function do_dump(&$var, $var_name = NULL, $indent = NULL, $reference = NULL)
+    {
+        $do_dump_indent = "<span style='color:#eeeeee;'></span> &nbsp;&nbsp; ";
+        $reference = $reference . $var_name;
+        $keyvar = 'the_do_dump_recursion_protection_scheme';
+        $keyname = 'referenced_object_name';
+
+        if (is_array($var) && isset($var[$keyvar])) {
+            $real_var = &$var[$keyvar];
+            $real_name = &$var[$keyname];
+            $type = strtolower(gettype($real_var));
+            echo "$indent$var_name <span style='color:#a2a2a2'>$type</span> = <span style='color:#e87800;'>&amp;$real_name</span><br />";
+        } else {
+            $var = array($keyvar => $var, $keyname => $reference);
+            $avar = &$var[$keyvar];
+
+            $type = strtolower(gettype($avar));
+            if ($type == "string")
+                $type_color = "<span style='color:yellow'>";
+            elseif ($type == "integer")
+                $type_color = "<span style='color:#2A2AFF'>";
+            elseif ($type == "double") {
+                $type_color = "<span style='color:#FFB530'>";
+                $type = "float";
+            } elseif ($type == "boolean")
+                $type_color = "<span style='color:#9B369B'>";
+            elseif ($type == "null")
+                $type_color = "<span style='color:red'>";
+
+            if (is_array($avar)) {
+                $count = count($avar);
+                echo "$indent" . ($var_name ? "$var_name => " : "") . "<span style='color:#c3c3c3'>$type ($count)</span><br />$indent(<br />";
+                $keys = array_keys($avar);
+                foreach ($keys as $name) {
+                    $value = &$avar[$name];
+                    $n = "<span style='color:#7eb6c9'>{$name}</span>";
+                    do_dump($value, "[$n]", $indent . $do_dump_indent, $reference);
+                }
+                echo "$indent)<br />";
+            } elseif (is_object($avar)) {
+                echo "$indent$var_name <span style='color:#a2a2a2'>$type</span><br />$indent(<br />";
+                foreach ($avar as $name => $value) {
+                    $n = "<span style='color:#7eb6c9'>{$name}</span>";
+                    do_dump($value, "$n", $indent . $do_dump_indent, $reference);
+                }
+                echo "$indent)<br />";
+            } elseif (is_int($avar))
+                echo "$indent$var_name : <span style='color:#2A2AFF'>$type(" . strlen($avar) . ")</span> $type_color$avar</span><br />";
+            elseif (is_string($avar))
+                echo "$indent$var_name : <span style='color:green'>$type(" . strlen($avar) . ")</span> $type_color\"$avar\"</span><br />";
+            elseif (is_float($avar))
+                echo "$indent$var_name : <span style='color:#FFB530'>$type(" . strlen($avar) . ")</span> $type_color$avar</span><br />";
+            elseif (is_bool($avar))
+                echo "$indent$var_name : <span style='color:#9B369B'>$type(" . strlen($avar) . ")</span> $type_color" . ($avar == 1 ? "true" : "false") . "</span><br />";
+            elseif (is_null($avar))
+                echo "$indent$var_name : <span style='color:red'>$type(" . strlen($avar) . ")</span> {$type_color}NULL</span><br />";
+            else
+                echo "$indent$var_name : <span style='color:#a2a2a2'>$type(" . strlen($avar) . ")</span> $avar<br />";
+
+            $var = $var[$keyvar];
+        }
     }
 
 }
