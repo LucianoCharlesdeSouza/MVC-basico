@@ -130,10 +130,10 @@ if (!function_exists('dd')) {
         $prefix = 'unique';
         $suffix = 'value';
 
-        if ($scope)
+        $vals = $GLOBALS;
+        if ($scope) {
             $vals = $scope;
-        else
-            $vals = $GLOBALS;
+        }
 
         $old = $var;
         $var = $new = $prefix . rand() . $suffix;
@@ -142,6 +142,7 @@ if (!function_exists('dd')) {
             if ($val === $new)
                 $vname = $key;
         $var = $old;
+
         echo "<pre style='margin: 0px 0px 10px 0px; display: block; background: black; color: white; font-family: Verdana; border: 1px solid #cccccc; padding: 5px; font-size: 12px; line-height: 15px;'>";
         if ($info != false)
             echo "<strong style='color:#a2e80b;'>$info:</strong><br />";
@@ -173,17 +174,25 @@ if (!file_exists('do_dump')) {
             $avar = &$var[$keyvar];
 
             $type = strtolower(gettype($avar));
-            if ($type == "string")
-                $type_color = "<span style='color:yellow'>";
-            elseif ($type == "integer")
-                $type_color = "<span style='color:#2A2AFF'>";
-            elseif ($type == "double") {
-                $type_color = "<span style='color:#FFB530'>";
-                $type = "float";
-            } elseif ($type == "boolean")
-                $type_color = "<span style='color:#9B369B'>";
-            elseif ($type == "null")
-                $type_color = "<span style='color:red'>";
+
+            switch ($type) {
+                case 'string':
+                    $type_color = "<span style='color:yellow'>";
+                    break;
+                case 'integer':
+                    $type_color = "<span style='color:#2A2AFF'>";
+                    break;
+                case 'double':
+                    $type_color = "<span style='color:#FFB530'>";
+                    $type = "float";
+                    break;
+                case 'boolean':
+                    $type_color = "<span style='color:#9B369B'>";
+                    break;
+                case 'null':
+                    $type_color = "<span style='color:red'>";
+                    break;
+            }
 
             if (is_array($avar)) {
                 $count = count($avar);
