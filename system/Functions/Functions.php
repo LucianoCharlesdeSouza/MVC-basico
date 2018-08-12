@@ -123,7 +123,7 @@ if (!function_exists('html')) {
  */
 if (!function_exists('dd')) {
 
-    function dd(&$var, $info = false)
+    function dd(&$var, $die = false, $info = false)
     {
         $scope = false;
         $prefix = 'unique';
@@ -147,6 +147,8 @@ if (!function_exists('dd')) {
             echo "<strong style='color:#a2e80b;'>$info:</strong><br />";
         do_dump($var, $vname);
         echo "</pre>";
+        if ($die == true)
+            die();
     }
 
 }
