@@ -1719,25 +1719,25 @@ class PHPMailer
 
         // Define full set of translatable strings in English
         $PHPMAILER_LANG = array(
-            'authenticate' => 'SMTP Error: Could not authenticate.',
-            'connect_host' => 'SMTP Error: Could not connect to SMTP host.',
-            'data_not_accepted' => 'SMTP Error: data not accepted.',
-            'empty_message' => 'Message body empty',
-            'encoding' => 'Unknown encoding: ',
-            'execute' => 'Could not execute: ',
-            'file_access' => 'Could not access file: ',
-            'file_open' => 'File Error: Could not open file: ',
-            'from_failed' => 'The following From address failed: ',
-            'instantiate' => 'Could not instantiate mail function.',
-            'invalid_address' => 'Invalid address: ',
-            'mailer_not_supported' => ' mailer is not supported.',
-            'provide_address' => 'You must provide at least one recipient email address.',
-            'recipients_failed' => 'SMTP Error: The following recipients failed: ',
-            'signing' => 'Signing Error: ',
-            'smtp_connect_failed' => 'SMTP connect() failed.',
-            'smtp_error' => 'SMTP server error: ',
-            'variable_set' => 'Cannot set or reset variable: ',
-            'extension_missing' => 'Extension missing: '
+            'authenticate' => 'Erro de SMTP: não foi possível autenticar.',
+            'connect_host' => 'Erro de SMTP: não foi possível conectar-se ao host SMTP.',
+            'data_not_accepted' => 'Erro de SMTP: dados não aceitos.',
+            'empty_message' => 'Corpo da mensagem vazio',
+            'encoding' => 'Codificação desconhecida: ',
+            'execute' => 'Não foi possível executar: ',
+            'file_access' => 'Não foi possível acessar o arquivo: ',
+            'file_open' => 'Erro de arquivo: não foi possível abrir o arquivo: ',
+            'from_failed' => 'O seguinte endereço FROM falhou: ',
+            'instantiate' => 'Não foi possível instanciar a função de email.',
+            'invalid_address' => 'Endereço inválido: ',
+            'mailer_not_supported' => ' mailer não é suportado.',
+            'provide_address' => 'Você deve fornecer pelo menos um endereço de e-mail do destinatário.',
+            'recipients_failed' => 'Erro de SMTP: os seguintes destinatários falharam: ',
+            'signing' => 'Erro de assinatura: ',
+            'smtp_connect_failed' => 'Conexão SMTP falhou.',
+            'smtp_error' => 'Erro do servidor SMTP: ',
+            'variable_set' => 'Não é possível definir ou redefinir variável: ',
+            'extension_missing' => 'Extensão ausente: '
         );
         if (empty($lang_path)) {
             // Calculate an absolute path so it can work if CWD is not here
@@ -2050,7 +2050,7 @@ class PHPMailer
         }
         if ($this->XMailer == '') {
             $result .= $this->headerLine(
-                    'X-Mailer', 'PHPMailer ' . $this->Version . ' (https://github.com/PHPMailer/PHPMailer)'
+                    'X-Mailer', 'PHPMailer ' . $this->Version
             );
         } else {
             $myXmailer = trim($this->XMailer);
@@ -3241,11 +3241,11 @@ class PHPMailer
         }
 
         if (array_key_exists($key, $this->language)) {
-            if ($key == 'smtp_connect_failed') {
+            if ($key == 'Falha ao conectar com servidor smtp') {
                 //Include a link to troubleshooting docs on SMTP connection failure
                 //this is by far the biggest cause of support questions
                 //but it's usually not PHPMailer's fault.
-                return $this->language[$key] . ' https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting';
+                return $this->language[$key];
             }
             return $this->language[$key];
         } else {
