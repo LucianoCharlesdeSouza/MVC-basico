@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Email
  *
@@ -29,6 +30,9 @@ class Email
     /** DESTINO */
     private $DestinoNome;
     private $DestinoEmail;
+
+    /** ERROR */
+    private $error;
 
     /**
      * Email constructor.
@@ -87,7 +91,6 @@ class Email
         $this->send_($Data);
     }
 
-
     /**
      * Faz o envio do E-mail
      * @return bool
@@ -99,11 +102,11 @@ class Email
                 $this->Mail->clearAddresses();
                 return true;
             }
+            $this->error = $this->Mail->ErrorInfo;
         } catch (Exception $e) {
             die($this->Mail->ErrorInfo);
         }
     }
-
 
     /**
      * Faz o anexo ao E-mail
@@ -114,6 +117,14 @@ class Email
         $this->Mail->addAttachment($File);
     }
 
+    /**
+     * Retorna o erro caso não envie o email
+     * @return msg
+     */
+    public function error()
+    {
+        return $this->error;
+    }
 
     /**
      * Higieniza os dados para o envio
