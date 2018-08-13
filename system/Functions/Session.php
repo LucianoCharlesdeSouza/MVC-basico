@@ -4,14 +4,15 @@
  * Função que retorna a box de mensagens da Sessão
  */
 
-if (!function_exists('box_flash')) {
+if (!function_exists('boxFlash')) {
 
-    function box_flash()
+    function boxFlash()
     {
-        return Session::box_flash_msg();
+        return Session::boxFlashMsg();
     }
 
 }
+
 
 /*
  * Função que seta um nome e um valor para a Sessão
