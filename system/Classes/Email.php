@@ -14,22 +14,22 @@ class Email
     use EmailTemplates;
 
     /** @var PHPMailer */
-    public $Mail;
+    public $mail;
 
     /** EMAIL DATA */
-    private $Data;
+    private $data;
 
     /** CORPO DO E-MAIL */
-    private $Assunto;
-    private $Mensagem;
+    private $assunto;
+    private $mensagem;
 
     /** REMETENTE */
-    private $RemetenteNome;
-    private $RemetenteEmail;
+    private $remetenteNome;
+    private $remetenteEmail;
 
     /** DESTINO */
-    private $DestinoNome;
-    private $DestinoEmail;
+    private $destinoNome;
+    private $destinoEmail;
 
     /** ERROR */
     private $error;
@@ -39,15 +39,15 @@ class Email
      */
     public function __construct()
     {
-        $this->Mail = new PHPMailer();
-        $this->Mail->Host = mailer('mail_host');
-        $this->Mail->Port = mailer('mail_port');
-        $this->Mail->Username = mailer('mail_username');
-        $this->Mail->Password = mailer('mail_password');
-        $this->Mail->SMTPAuth = mailer('mail_smtpauth');
+        $this->mail = new PHPMailer();
+        $this->mail->Host = mailer('mail_host');
+        $this->mail->Port = mailer('mail_port');
+        $this->mail->Username = mailer('mail_username');
+        $this->mail->Password = mailer('mail_password');
+        $this->mail->SMTPAuth = mailer('mail_smtpauth');
 
         if (!empty(mailer('mail_smtpsecure'))):
-            $this->Mail->SMTPSecure = mailer('mail_smtpsecure');
+            $this->mail->SMTPSecure = mailer('mail_smtpsecure');
         endif;
     }
 
@@ -66,12 +66,12 @@ class Email
      * &raquo; DestinoEmail
      * </i>
      */
-    private function send_(array $Data)
+    private function send_(array $data)
     {
-        $this->Data = $Data;
+        $this->data = $data;
         $this->clear();
 
-        $Data['RemetenteNome'] = ($Data['RemetenteNome'] != 'null' ? $Data['RemetenteNome'] : null);
+        $data['RemetenteNome'] = ($data['RemetenteNome'] != 'null' ? $data['RemetenteNome'] : null);
         $this->setMail();
         $this->config();
     }
@@ -80,15 +80,15 @@ class Email
      * <b>Montar e Enviar:</b> Execute este método para facilitar o envio.
      * Informando os parâmetros solicitados para montar os dados!
      */
-    public function createEmail($Assunto, $Mensagem, $RemetenteNome, $RemetenteEmail, $DestinoNome = null, $DestinoEmail = null)
+    public function createEmail($assunto, $mensagem, $remetenteNome, $remetenteEmail, $destinoNome = null, $destinoEmail = null)
     {
-        $Data['Assunto'] = $Assunto;
-        $Data['Mensagem'] = $Mensagem;
-        $Data['RemetenteNome'] = $RemetenteNome;
-        $Data['RemetenteEmail'] = $RemetenteEmail;
-        $Data['DestinoNome'] = ($DestinoNome != null) ? $DestinoNome : mailer('mail_nomedestinatario');
-        $Data['DestinoEmail'] = ($DestinoEmail != null) ? $DestinoEmail : mailer('mail_emaildestinatario');
-        $this->send_($Data);
+        $data['Assunto'] = $assunto;
+        $data['Mensagem'] = $mensagem;
+        $data['RemetenteNome'] = $remetenteNome;
+        $data['RemetenteEmail'] = $remetenteEmail;
+        $data['DestinoNome'] = ($destinoNome != null) ? $destinoNome : mailer('mail_nomedestinatario');
+        $data['DestinoEmail'] = ($destinoEmail != null) ? $destinoEmail : mailer('mail_emaildestinatario');
+        $this->send_($data);
     }
 
     /**
@@ -98,13 +98,13 @@ class Email
     public function sendMail()
     {
         try {
-            if ($this->Mail->Send()) {
-                $this->Mail->clearAddresses();
+            if ($this->mail->Send()) {
+                $this->mail->clearAddresses();
                 return true;
             }
-            $this->error = $this->Mail->ErrorInfo;
+            $this->error = $this->mail->ErrorInfo;
         } catch (Exception $e) {
-            die($this->Mail->ErrorInfo);
+            die($this->mail->ErrorInfo);
         }
     }
 
@@ -114,7 +114,7 @@ class Email
      */
     public function addFile($File)
     {
-        $this->Mail->addAttachment($File);
+        $this->mail->addAttachment($File);
     }
 
     /**
@@ -131,8 +131,8 @@ class Email
      */
     private function clear()
     {
-        array_map('strip_tags', $this->Data);
-        array_map('trim', $this->Data);
+        array_map('strip_tags', $this->data);
+        array_map('trim', $this->data);
     }
 
     /**
@@ -140,13 +140,13 @@ class Email
      */
     private function setMail()
     {
-        $this->Assunto = $this->Data['Assunto'];
-        $this->Mensagem = $this->Data['Mensagem'];
-        $this->RemetenteNome = $this->Data['RemetenteNome'];
-        $this->RemetenteEmail = $this->Data['RemetenteEmail'];
-        $this->DestinoNome = $this->Data['DestinoNome'];
-        $this->DestinoEmail = $this->Data['DestinoEmail'];
-        $this->Data = null;
+        $this->assunto = $this->data['Assunto'];
+        $this->mensagem = $this->data['Mensagem'];
+        $this->remetenteNome = $this->data['RemetenteNome'];
+        $this->remetenteEmail = $this->data['RemetenteEmail'];
+        $this->destinoNome = $this->data['DestinoNome'];
+        $this->destinoEmail = $this->data['DestinoEmail'];
+        $this->data = null;
     }
 
     /**
@@ -155,23 +155,23 @@ class Email
     private function config()
     {
         //SMTP AUTH
-        $this->Mail->SMTPOptions = mailer('mail_smtpoptions');
-        $this->Mail->CharSet = mailer('mail_charset');
-        $this->Mail->setLanguage('pt');
-        $this->Mail->IsSMTP();
-        $this->Mail->SMTPDebug = mailer('mail_smtpdebug');
-        $this->Mail->IsHTML(true);
+        $this->mail->SMTPOptions = mailer('mail_smtpoptions');
+        $this->mail->CharSet = mailer('mail_charset');
+        $this->mail->setLanguage('pt');
+        $this->mail->IsSMTP();
+        $this->mail->SMTPDebug = mailer('mail_smtpdebug');
+        $this->mail->IsHTML(true);
 
 
         //REMETENTE E RETORNO
-        $this->Mail->From = mailer('mail_username'); /* email de quem envia */
-        $this->Mail->FromName = mailer('mail_enviado_por'); /* Nome do remetente de e-mail */
-        $this->Mail->AddReplyTo($this->RemetenteEmail, $this->RemetenteNome);
+        $this->mail->From = mailer('mail_username'); /* email de quem envia */
+        $this->mail->FromName = mailer('mail_enviado_por'); /* Nome do remetente de e-mail */
+        $this->mail->AddReplyTo($this->remetenteEmail, $this->remetenteNome);
 
         //ASSUNTO, MENSAGEM E DESTINO
-        $this->Mail->Subject = $this->Assunto;
-        $this->Mail->msgHTML($this->Mensagem);
-        $this->Mail->AddAddress($this->DestinoEmail, $this->DestinoNome);
+        $this->mail->Subject = $this->assunto;
+        $this->mail->msgHTML($this->mensagem);
+        $this->mail->AddAddress($this->destinoEmail, $this->destinoNome);
     }
 
 }
