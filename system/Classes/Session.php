@@ -11,11 +11,6 @@
 class Session
 {
 
-    private static $alert_type,
-            $alert_icon,
-            $alert_title,
-            $alert_msg;
-
     /**
      * Método que recebe um name e um valor para ser armazenado na sessão
      * @param $name
@@ -123,12 +118,12 @@ class Session
     {
         return ( isset($_SESSION['SESSION_FLASH'][$name]) ) ? true : false;
     }
-    
+
     /**
      * Método que gera o html para o retorno das msg do Ajax
      * @return string
      */
-    public static function box_ajax_msg()
+    public static function boxAjaxMsg()
     {
         $box = '<div style="position: fixed;right: 10px;top: 30px;';
         $box .= 'width: 360px;max-width: 80%;padding: 10px 20px 10px 20px;';
@@ -144,10 +139,10 @@ class Session
      * Método que gera o html para o retorno das msg de sessão
      * @return null|string
      */
-    public static function box_flash_msg()
+    public static function boxFlashMsg()
     {
-        if (static::hasFlash('http_code')) {
-            http_response_code(static::getFlash('http_code'));
+        if (static::hasFlash('httpCode')) {
+            http_response_code(static::getFlash('httpCode'));
         }
         if (static::hasFlash('alert-type')) {
             $style = 'position: fixed; right: 24px; top: 60px; width: 360px; max-width: 80.5%; ';
@@ -179,15 +174,15 @@ class Session
      * levando uma mensagem, titulo,e ou código http
      * @param $msg
      * @param string $title
-     * @param null $http_code
+     * @param null $httpCode
      */
-    public static function flashDanger($msg, $title = 'Cuidado!', $http_code = null)
+    public static function flashDanger($msg, $title = 'Cuidado!', $httpCode = null)
     {
         static::setFlash('alert-type', 'alert-danger');
         static::setFlash('alert_icon', 'fa fa-ban');
         static::setFlash('alert_title', $title);
         static::setFlash('alert_msg', $msg);
-        (isset($http_code)) ? static::setFlash('http_code', $http_code) : '';
+        (isset($httpCode)) ? static::setFlash('httpCode', $httpCode) : '';
     }
 
     /**
@@ -195,15 +190,15 @@ class Session
      * levando uma mensagem, titulo,e ou código http
      * @param $msg
      * @param string $title
-     * @param null $http_code
+     * @param null $httpCode
      */
-    public static function flashWarning($msg, $title = 'Atenção!', $http_code = null)
+    public static function flashWarning($msg, $title = 'Atenção!', $httpCode = null)
     {
         static::setFlash('alert-type', 'alert-warning');
         static::setFlash('alert_icon', 'fa fa-warning');
         static::setFlash('alert_title', $title);
         static::setFlash('alert_msg', $msg);
-        (isset($http_code)) ? static::setFlash('http_code', $http_code) : '';
+        (isset($httpCode)) ? static::setFlash('httpCode', $httpCode) : '';
     }
 
     /**
@@ -211,15 +206,15 @@ class Session
      * levando uma mensagem, titulo,e ou código http
      * @param $msg
      * @param string $title
-     * @param null $http_code
+     * @param null $httpCode
      */
-    public static function flashInfo($msg, $title = 'Informação!', $http_code = null)
+    public static function flashInfo($msg, $title = 'Informação!', $httpCode = null)
     {
         static::setFlash('alert-type', 'alert-info');
         static::setFlash('alert_icon', 'fa fa-info');
         static::setFlash('alert_title', $title);
         static::setFlash('alert_msg', $msg);
-        (isset($http_code)) ? static::setFlash('http_code', $http_code) : '';
+        (isset($httpCode)) ? static::setFlash('httpCode', $httpCode) : '';
     }
 
     /**
@@ -227,15 +222,15 @@ class Session
      * levando uma mensagem, titulo,e ou código http
      * @param $msg
      * @param string $title
-     * @param null $http_code
+     * @param null $httpCode
      */
-    public static function flashSuccess($msg, $title = 'Sucesso!', $http_code = null)
+    public static function flashSuccess($msg, $title = 'Sucesso!', $httpCode = null)
     {
         static::setFlash('alert-type', 'alert-success');
         static::setFlash('alert_icon', 'fa fa-check');
         static::setFlash('alert_title', $title);
         static::setFlash('alert_msg', $msg);
-        (isset($http_code)) ? static::setFlash('http_code', $http_code) : '';
+        (isset($httpCode)) ? static::setFlash('httpCode', $httpCode) : '';
     }
 
 }
