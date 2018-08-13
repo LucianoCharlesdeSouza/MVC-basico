@@ -70,7 +70,7 @@ class Encrypt
      * @param $value
      * @return bool|string
      */
-    public static function create_password($value)
+    public static function createPassword($value)
     {
         return password_hash(app('app_key') . $value, PASSWORD_BCRYPT);
     }
@@ -82,7 +82,7 @@ class Encrypt
      * @param $hash
      * @return bool
      */
-    public static function verify_password($value, $hash)
+    public static function verifyPassword($value, $hash)
     {
         return password_verify(app('app_key') . $value, $hash);
     }
