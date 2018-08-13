@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Trait EmailTemplates
  * Possui metodos que retornam os html para envio de e-mail
@@ -17,7 +18,7 @@ trait EmailTemplates
      * @param $link
      * @return mixed
      */
-    public function template_recover_password($name, $link)
+    public function templateRecoverPassword($name, $link)
     {
         $mail_content = '<table width="550" style="font-family: "Trebuchet MS", sans-serif;">';
         $mail_content .= '<tr><td>';
@@ -50,9 +51,9 @@ trait EmailTemplates
         $body_mail .= "<p>Você será redirecionado para uma página onde poderá definir uma nova senha de acesso ao painel! ";
         $body_mail .= "Cuide bem dos seus dados.</p>";
 
-        $mensagem = str_replace('#mail_body#', $body_mail, $mail_content);
+        $msg = str_replace('#mail_body#', $body_mail, $mail_content);
 
-        return $mensagem;
+        return $msg;
     }
 
     /**
@@ -61,7 +62,7 @@ trait EmailTemplates
      * @param $link
      * @return mixed
      */
-    public function template_first_access($name, $link)
+    public function templateFirstAccess($name, $link)
     {
         $mail_content = '<table width="550" style="font-family: "Trebuchet MS", sans-serif;">';
         $mail_content .= '<tr><td>';
@@ -93,9 +94,9 @@ trait EmailTemplates
         $body_mail .= "<p>Você será redirecionado para uma página onde poderá definir uma nova senha de acesso ao painel! ";
         $body_mail .= "Cuide bem dos seus dados.</p>";
 
-        $mensagem = str_replace('#mail_body#', $body_mail, $mail_content);
+        $msg = str_replace('#mail_body#', $body_mail, $mail_content);
 
-        return $mensagem;
+        return $msg;
     }
 
 }
