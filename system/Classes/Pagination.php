@@ -12,14 +12,14 @@
 trait Pagination
 {
 
-    private $index_page = 0,
+    private $indexPage = 0,
             $links = '',
-            $max_page = 2,
-            $max_links = 2,
+            $maxPage = 2,
+            $maxLinks = 2,
             $places = [],
             $page = 'page',
             $query = '',
-            $query_count = null;
+            $queryCount = null;
 
     /**
      * Método que recebe o valor máximo de registros por página
@@ -31,7 +31,7 @@ trait Pagination
         if (!is_int($max) || !is_numeric($max)) {
             throw new Exception("Passe um valor inteiro para o máximo de registro por páginas!");
         }
-        $this->max_page = (int) $max;
+        $this->maxPage = (int) $max;
     }
 
     /**
@@ -57,7 +57,7 @@ trait Pagination
         if (!is_int($maxlinks) || !is_numeric($maxlinks)) {
             throw new Exception("Passe um valor para o máximo de links!");
         }
-        $this->max_links = (int) $maxlinks;
+        $this->maxLinks = (int) $maxlinks;
     }
 
     /**
@@ -69,8 +69,8 @@ trait Pagination
     {
         $Query = "SELECT * FROM {$this->table} {$where}";
         $this->getIndexPage();
-        $this->query .= $Query . " LIMIT " . $this->index_page . "," . $this->max_page;
-        return $this->FullSql($this->query, $this->places);
+        $this->query .= $Query . " LIMIT " . $this->indexPage . "," . $this->maxPage;
+        return $this->fullSql($this->query, $this->places);
     }
 
     /**
@@ -83,7 +83,7 @@ trait Pagination
      */
     public function fullQuery($query, array $fields = null)
     {
-        return $this->FullSql($query, $fields);
+        return $this->fullSql($query, $fields);
     }
 
     /**
@@ -95,8 +95,8 @@ trait Pagination
     public function createPagination($Query)
     {
         $this->getIndexPage();
-        $this->query .= $Query . " LIMIT " . $this->index_page . "," . $this->max_page;
-        return $this->FullSql($this->query, $this->places);
+        $this->query .= $Query . " LIMIT " . $this->indexPage . "," . $this->maxPage;
+        return $this->fullSql($this->query, $this->places);
     }
 
     /**
@@ -115,7 +115,7 @@ trait Pagination
     public function createLinks()
     {
         $this->pagingNumberExceeded();
-        if ($this->totalRecords() > $this->max_page) {
+        if ($this->totalRecords() > $this->maxPage) {
             $this->firstLink();
             $this->previousLink();
             $this->currentLink();
@@ -158,7 +158,7 @@ trait Pagination
      * @param array|null $Fields
      * @return array
      */
-    private function FullSql($Query, array $Fields = null)
+    private function fullSql($Query, array $Fields = null)
     {
         try {
             $sql = strtolower($Query);
@@ -172,6 +172,14 @@ trait Pagination
             $stmt->execute();
 
             if ($update) {
+                return true;
+            }
+
+            if ($delete) {
+                return true;
+            }
+
+            if ($insert) {
                 return true;
             }
 
@@ -189,10 +197,10 @@ trait Pagination
      */
     private function getIndexPage()
     {
-        if ((($this->max_page * $this->getPager()) - $this->max_page) > 0) {
-            return $this->index_page = (($this->max_page * $this->getPager()) - $this->max_page);
+        if ((($this->maxPage * $this->getPager()) - $this->maxPage) > 0) {
+            return $this->indexPage = (($this->maxPage * $this->getPager()) - $this->maxPage);
         }
-        return $this->index_page = 0;
+        return $this->indexPage = 0;
     }
 
     /**
@@ -203,12 +211,12 @@ trait Pagination
     private function totalRecords()
     {
         $new_query = explode('from', strtolower($this->query));
-        $this->query_count = str_replace($this->query, "select count(*) as total from " . $new_query[1], $this->query);
-        $this->query_count = substr($this->query_count, 0, strpos($this->query_count, "limit"));
+        $this->queryCount = str_replace($this->query, "select count(*) as total from " . $new_query[1], $this->query);
+        $this->queryCount = substr($this->queryCount, 0, strpos($this->queryCount, "limit"));
         $db = database();
 
         $fetch_mode = $db['fetch_mode'];
-        return ($fetch_mode == 5) ? $this->FullSql($this->query_count, $this->places)[0]->total : $this->FullSql($this->query_count, $this->places)[0]['total'];
+        return ($fetch_mode == 5) ? $this->fullSql($this->queryCount, $this->places)[0]->total : $this->fullSql($this->queryCount, $this->places)[0]['total'];
     }
 
     /**
@@ -217,7 +225,7 @@ trait Pagination
      */
     private function totalPages()
     {
-        return ceil($this->totalRecords() / $this->max_page);
+        return ceil($this->totalRecords() / $this->maxPage);
     }
 
     /**
@@ -246,7 +254,7 @@ trait Pagination
      */
     private function previousLink()
     {
-        for ($i = $this->getPager() - $this->max_links; $i <= $this->getPager() - 1; $i++) {
+        for ($i = $this->getPager() - $this->maxLinks; $i <= $this->getPager() - 1; $i++) {
             if ($i >= 1) {
                 $this->links .= "<li class=\"page-item\"><a class=\"page-link\" href=\"?" . $this->page . "=" . $i . "\">" . $i . "</a></li>";
             }
@@ -266,7 +274,7 @@ trait Pagination
      */
     private function nextLink()
     {
-        for ($i = $this->getPager() + 1; $i <= $this->getPager() + $this->max_links; $i++) {
+        for ($i = $this->getPager() + 1; $i <= $this->getPager() + $this->maxLinks; $i++) {
             if ($i <= $this->totalPages()) {
                 $this->links .= "<li class=\"page-item\"><a class=\"page-link\" href=\"?" . $this->page . "=" . $i . "\">" . $i . "</a></li>";
             }
