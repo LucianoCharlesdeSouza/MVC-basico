@@ -30,9 +30,9 @@ if (!function_exists('redirect')) {
  * Função que redireciona a página após um determinado tempo
  */
 
-if (!function_exists('redirect_after')) {
+if (!function_exists('redirectAfter')) {
 
-    function redirect_after($to = null, $time = 3)
+    function redirectAfter($to = null, $time = 3)
     {
         header("Refresh: " . $time . ";url=" . base_url($to));
         exit();
