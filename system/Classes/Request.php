@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Request
 
@@ -10,15 +11,15 @@
 class Request
 {
 
-    private $request_type;
+    private $requestType;
 
     /**
-     * Aplica o tipo de requisição ao atributo $request_type
+     * Aplica o tipo de requisição ao atributo $requestType
      * Request constructor.
      */
     public function __construct()
     {
-        $this->request_type = ($_SERVER['REQUEST_METHOD'] == 'POST') ? $_POST : $_GET;
+        $this->requestType = ($_SERVER['REQUEST_METHOD'] == 'POST') ? $_POST : $_GET;
     }
 
     /**
@@ -28,7 +29,7 @@ class Request
      */
     public function postAll()
     {
-        $array = $this->strip_tags(filter_input_array(INPUT_POST, FILTER_SANITIZE_MAGIC_QUOTES));
+        $array = $this->stripTags(filter_input_array(INPUT_POST, FILTER_SANITIZE_MAGIC_QUOTES));
         $array = array_map('trim', $array);
 
         return $array;
@@ -41,7 +42,7 @@ class Request
      */
     public function getAll()
     {
-        $array = $this->strip_tags(filter_input_array(INPUT_GET, FILTER_SANITIZE_MAGIC_QUOTES));
+        $array = $this->stripTags(filter_input_array(INPUT_GET, FILTER_SANITIZE_MAGIC_QUOTES));
         $array = array_map('trim', $array);
 
         return $array;
@@ -89,7 +90,7 @@ class Request
      * @param $field
      * @return bool
      */
-    public function is_empty($field)
+    public function isEmpty($field)
     {
         return (empty($field)) ? true : false;
     }
@@ -100,8 +101,8 @@ class Request
      */
     public function all()
     {
-        foreach ($this->request_type as $field => $value) {
-            $data[$field] = addslashes(trim($this->strip_tags($value)));
+        foreach ($this->requestType as $field => $value) {
+            $data[$field] = addslashes(trim($this->stripTags($value)));
         }
 
         return array_map('trim', $data);
@@ -115,7 +116,7 @@ class Request
     public function only(array $fields)
     {
         foreach ($fields as $field) {
-            $data[$field] = addslashes(trim($this->strip_tags($this->request_type[$field])));
+            $data[$field] = addslashes(trim($this->stripTags($this->requestType[$field])));
         }
 
         return $data;
@@ -176,12 +177,11 @@ class Request
      * @param null $to
      * @param int $time
      */
-    public function redirect_after($to = null, $time = 3)
+    public function redirectAfter($to = null, $time = 3)
     {
         header("Refresh: " . $time . ";url=" . base_url($to));
         exit();
     }
-
 
     /**
      * Método recebe um array de indices e valores para
@@ -212,7 +212,7 @@ class Request
      * @param bool $invert
      * @return mixed
      */
-    public function strip_tags($text, $tags = '', $invert = FALSE)
+    public function stripTags($text, $tags = '', $invert = FALSE)
     {
 
         preg_match_all('/<(.+?)[\s]*\/?[\s]*>/si', trim($tags), $tags);
