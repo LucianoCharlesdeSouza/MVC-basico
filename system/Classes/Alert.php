@@ -11,45 +11,45 @@
 class Alert
 {
 
-    public static function AjaxSuccess($descricao, $titulo = "")
+    public static function AjaxSuccess($descryption, $title = "")
     {
-        if ($titulo != ""):
-            return ["alert alert-success", "fa fa-check", $titulo, $descricao];
+        if ($title != ""):
+            return ["alert alert-success", "fa fa-check", $title, $descryption];
         endif;
 
-        return ["alert alert-success", "fa fa-check", " Sucesso!", $descricao];
+        return ["alert alert-success", "fa fa-check", " Sucesso!", $descryption];
     }
 
-    public static function AjaxInfo($descricao, $titulo = "")
+    public static function AjaxInfo($descryption, $title = "")
     {
-        if ($titulo != ""):
-            return ["alert alert-info", "fa fa-info", $titulo, $descricao];
+        if ($title != ""):
+            return ["alert alert-info", "fa fa-info", $title, $descryption];
         endif;
-        return ["alert alert-info", "fa fa-info", " Informação!", $descricao];
+        return ["alert alert-info", "fa fa-info", " Informação!", $descryption];
     }
 
-    public static function AjaxWarning($descricao, $titulo = "")
+    public static function AjaxWarning($descryption, $title = "")
     {
-        if ($titulo != ""):
-            return ["alert alert-warning", "fa fa-warning", $titulo, $descricao];
+        if ($title != ""):
+            return ["alert alert-warning", "fa fa-warning", $title, $descryption];
         endif;
-        return ["alert alert-warning", "fa fa-warning", " Atenção!", $descricao];
+        return ["alert alert-warning", "fa fa-warning", " Atenção!", $descryption];
     }
 
-    public static function AjaxDanger($descricao, $titulo = "")
+    public static function AjaxDanger($descryption, $title = "")
     {
-        if ($titulo != ""):
-            return ["alert alert-danger", "fa fa-ban", $titulo, $descricao];
+        if ($title != ""):
+            return ["alert alert-danger", "fa fa-ban", $title, $descryption];
         endif;
-        return ["alert alert-danger", "fa fa-ban", " Cuidado!", $descricao];
+        return ["alert alert-danger", "fa fa-ban", " Cuidado!", $descryption];
     }
 
-    public static function AjaxRedirect($praOnde, $tempo = null)
+    public static function AjaxRedirect($toWhere, $time = null)
     {
-        if ($tempo != null):
-            return [$praOnde, $tempo];
+        if ($time != null):
+            return [$toWhere, $time];
         endif;
-        return [$praOnde, 3200];
+        return [$toWhere, 3200];
     }
 
 }
