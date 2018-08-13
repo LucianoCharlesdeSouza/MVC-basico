@@ -36,15 +36,15 @@ trait Pagination
 
     /**
      * Método que recebe o nome do page
-     * @param $name_page string
+     * @param $namePage string
      * @throws Exception
      */
-    public function page($name_page)
+    public function page($namePage)
     {
-        if (!is_string($name_page)) {
+        if (!is_string($namePage)) {
             throw new Exception("O nome do paginador deve ser tipo string!");
         }
-        $this->page = (string) $name_page;
+        $this->page = (string) $namePage;
     }
 
     /**
@@ -101,11 +101,11 @@ trait Pagination
 
     /**
      * Método que recebe um array para usar como substitutos no Bind
-     * @param array $places_values
+     * @param array $placesValues
      */
-    public function places(array $places_values)
+    public function places(array $placesValues)
     {
-        $this->places = $places_values;
+        $this->places = $placesValues;
     }
 
     /**
@@ -210,13 +210,13 @@ trait Pagination
      */
     private function totalRecords()
     {
-        $new_query = explode('from', strtolower($this->query));
-        $this->queryCount = str_replace($this->query, "select count(*) as total from " . $new_query[1], $this->query);
+        $newQuery = explode('from', strtolower($this->query));
+        $this->queryCount = str_replace($this->query, "select count(*) as total from " . $newQuery[1], $this->query);
         $this->queryCount = substr($this->queryCount, 0, strpos($this->queryCount, "limit"));
         $db = database();
 
-        $fetch_mode = $db['fetch_mode'];
-        return ($fetch_mode == 5) ? $this->fullSql($this->queryCount, $this->places)[0]->total : $this->fullSql($this->queryCount, $this->places)[0]['total'];
+        $fetchMode = $db['fetch_mode'];
+        return ($fetchMode == 5) ? $this->fullSql($this->queryCount, $this->places)[0]->total : $this->fullSql($this->queryCount, $this->places)[0]['total'];
     }
 
     /**
@@ -292,10 +292,10 @@ trait Pagination
 
     /**
      * Método que retorna a url com o nome do page, porem sem o valor da paginação
-     * @param $name_Pager
+     * @param $namePager
      * @return bool|string
      */
-    private function ReturnPageValid($name_Pager)
+    private function ReturnPageValid($namePager)
     {
         $URL = filter_input(INPUT_SERVER, 'HTTP_HOST');
         $url = "http://" . $URL . filter_input(INPUT_SERVER, 'REQUEST_URI');
@@ -303,7 +303,7 @@ trait Pagination
         if (isset($https) && $https == 'on') {
             $url = "https://" . $URL . filter_input(INPUT_SERVER, 'REQUEST_URI');
         }
-        return substr($url, 0, strpos($url, "?" . $name_Pager));
+        return substr($url, 0, strpos($url, "?" . $namePager));
     }
 
 }
