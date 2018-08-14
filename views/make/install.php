@@ -205,7 +205,7 @@
                     </div>
                     <div class="row"><br/></div>
                     <div class="col-md-4  offset-md-4">
-                        <br />
+                        <br/>
                         <button class="btn btn-lg btn-primary btn-block install" type="submit">
                             <i class="setup "></i>
                             Finish settings
