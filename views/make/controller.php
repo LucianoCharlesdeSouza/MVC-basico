@@ -66,7 +66,7 @@
     </head>
 
     <body>
-        <?php echo box_flash(); ?>
+        <?php echo boxFlash(); ?>
 
         <form class="form-signin" method="post" action="<?php echo base_url("/make/createController"); ?>">
 
