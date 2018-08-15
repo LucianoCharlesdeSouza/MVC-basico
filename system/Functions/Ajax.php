@@ -37,3 +37,14 @@ if (!function_exists('btnAjaxForm')) {
 
 }
 
+/*
+ * Função que retorna botão usado para deletar na requisição Ajax
+ */
+if (!function_exists('btnDeleteAjax')) {
+
+    function btnDeleteAjax($controller, $id, $value = 'Excluir', $class = null)
+    {
+        return '<button class="ajaxDelete ' . $class . '" data-controller="' . $controller . '" id="' . $id . '">' . $value . '</button>';
+    }
+
+}
