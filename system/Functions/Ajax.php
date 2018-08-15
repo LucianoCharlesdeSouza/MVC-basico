@@ -8,7 +8,15 @@ if (!function_exists('boxAjax')) {
 
     function boxAjax()
     {
-        return Session::boxAjaxMsg();
+        $box = '<div style="position: fixed;right: 10px;top: 50px;';
+        $box .= 'width: 360px;max-width: 80%;padding: 10px 20px 10px 20px;';
+        $box .= 'cursor: pointer;z-index: 9999;margin-bottom: 20px;" class="alerta ">';
+        $box .= '<span aria-hidden="true" style="float:right;" class="btnAjaxClose"></span>';
+        $box .= ' <h4><i class = "icon icones "></i><span class = "titulo"></span></h4>';
+        $box .= ' <div class = "result"></div>';
+        $box .= ' </div>';
+
+        return $box;
     }
 
 }
