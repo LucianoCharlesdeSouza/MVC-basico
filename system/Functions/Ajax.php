@@ -20,7 +20,7 @@ if (!function_exists('ajaxForm')) {
 
     function ajaxForm($controller, $class = null)
     {
-        return "class='ajaxForm " . $class . "' data-controller='" . $controller . "'";
+        return 'class="ajaxForm ' . $class . '" data-controller="' . $controller . '"';
     }
 
 }
@@ -36,3 +36,4 @@ if (!function_exists('btnAjaxForm')) {
     }
 
 }
+
