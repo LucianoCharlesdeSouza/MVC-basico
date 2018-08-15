@@ -116,7 +116,7 @@ if (!function_exists('sessionDestroy')) {
     {
 
         if (sessionHas($name)) {
-            sessionDestroy($name);
+            Session::destroy($name);
         }
     }
 
