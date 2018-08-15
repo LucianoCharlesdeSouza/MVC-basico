@@ -17,7 +17,7 @@ $(function() {
             processData: false,
             contentType: false,
             beforeSend: function(data) {
-
+                $(".btnAjaxForm").addClass("fa-spinner fa-spin");
                 $(".btnAjaxClose").html('');
 
                 $.each(alerts, function(key, value) {
@@ -27,15 +27,14 @@ $(function() {
                     $('.icones').removeClass(value);
                 });
 
-                $(".fa").addClass("fa-spinner fa-spin");
+
 
             },
             success: function(data) {
-
+                $(".btnAjaxForm").removeClass("fa-spinner fa-spin");
                 $(".btnAjaxClose").html('&times;');
                 $('.alerta').fadeIn('slow');
 
-                $(".fa").removeClass("fa-spinner fa-spin");
 
                 /**
                  * Recupera os dados
