@@ -68,7 +68,7 @@
                 </ul>
             </div>
         </nav>
-        <?php echo box_flash(); ?>
+        <?php echo boxFlash(); ?>
 
         <?php $this->loadViewInTemplate($viewName, $viewData); ?>
 
