@@ -200,7 +200,7 @@ class Request
      */
     public function csrfValid($redirectTo = "/notFound/unauthorized")
     {
-        if (Session::get('_token') != $this->all()['_token']) {
+        if (Session::get('_token') != $this->post('_token')) {
             return redirect($redirectTo);
         }
     }
