@@ -28,7 +28,7 @@ if (!function_exists('database')) {
  */
 if (!function_exists('app')) {
 
-    function app($key)
+    function app($key = null)
     {
 
         $app = include dirname(__DIR__, 2) . '/config/app.php';
