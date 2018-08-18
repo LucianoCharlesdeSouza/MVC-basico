@@ -24,7 +24,7 @@ class Upload
     private $allowed = []; //array com os mime types permitidos
     private $height = 800; //800px
     private $width = 1546; //1546px
-    private $size = 250000; //1.5MB;
+    private $size = 450000; //4.5MB;
     private $path; //caminho onde será salvo a imagem
     private $error;
 
