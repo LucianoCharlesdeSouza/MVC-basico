@@ -97,6 +97,26 @@ class Request
 
     /**
      * Método que retorna um array ja higienizados com os indices e valores
+     * Usados em inputs cujo name é um array (<input type="checkbox" name="cor[]"/>)
+     * @param type $fieldArray
+     * @return array
+     */
+    public function inputArray($fieldArray)
+    {
+
+        if (key_exists($fieldArray, $this->requestType)) {
+            foreach ($this->requestType[$fieldArray] as $field => $value) {
+                $data[$field] = addslashes(trim($this->stripTags($value)));
+            }
+
+            return $data;
+        }
+
+        return false;
+    }
+
+    /**
+     * Método que retorna um array ja higienizados com os indices e valores
      * @return array
      */
     public function all()
@@ -105,7 +125,7 @@ class Request
             $data[$field] = addslashes(trim($this->stripTags($value)));
         }
 
-        return array_map('trim', $data);
+        return $data;
     }
 
     /**
@@ -151,7 +171,7 @@ class Request
     }
 
     /**
-     * Método que recebe uma string com o name do inout file e
+     * Método que recebe uma string com o name do inpout file e
      * o retorna caso exista e não esteja vazio
      * @param $field
      * @return bool
@@ -228,6 +248,11 @@ class Request
             return preg_replace('@<(\w+)\b.*?>.*?</\1>@si', '', $text);
         }
         return $text;
+    }
+
+    private function inputType($request)
+    {
+        return ($request == $_POST) ? INPUT_POST : INPUT_GET;
     }
 
 }
