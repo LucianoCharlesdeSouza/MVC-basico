@@ -83,48 +83,37 @@ class Model
     }
 
     /**
-     * Método que pode receber até 05 paramêtros (02 Obrigatórios)
-     * permitindo assim montar o SQL como desejado e
-     * retorna um array se houver resultados
+     * Método que recebe 03 paramêtros para compor a instrução SQL
      * <b>Exemplo</b>
-     * <p>$bindValue = ['id' => 10]</p>
-     * <p>find("id", 5, "OR id = :id, $bindValue, 2)</p>
+     * <p>find("id", '=', 5)</p>
      * @param $field
+     * @param $condition
      * @param $value
-     * @param null $where
-     * @param null $bindValue
-     * @param int $limit
      * @return array|mixed
      */
-    public function find($field, $value, $where = null, $bindValue = null, $limit = 1)
+    public function find($field, $condition, $value)
     {
-        $sql = "SELECT * FROM {$this->table} WHERE {$field} = :{$field} " . $where . " LIMIT " . $limit;
+        $sql = "SELECT * FROM {$this->table} WHERE {$field} {$condition} :{$field} LIMIT 1";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(":{$field}", $value);
 
-        if ($bindValue) {
-            foreach ($bindValue as $key => $value) {
+        switch ($value) {
 
-                switch ($value) {
-
-                    case is_int($value):
-                        $param = PDO::PARAM_INT;
-                        break;
-                    case is_bool($value):
-                        $param = PDO::PARAM_BOOL;
-                        break;
-                    case is_null($value):
-                        $param = PDO::PARAM_NULL;
-                        break;
-                    case is_string($value):
-                        $param = PDO::PARAM_STR;
-                        break;
-                }
-
-                $stmt->bindValue(":{$key}", $value, $param);
-            }
+            case is_int($value):
+                $param = PDO::PARAM_INT;
+                break;
+            case is_bool($value):
+                $param = PDO::PARAM_BOOL;
+                break;
+            case is_null($value):
+                $param = PDO::PARAM_NULL;
+                break;
+            case is_string($value):
+                $param = PDO::PARAM_STR;
+                break;
         }
+
+        $stmt->bindValue(":{$field}", $value, $param);
 
         try {
 
@@ -132,7 +121,7 @@ class Model
 
             if ($stmt->rowCount() > 0) {
 
-                return ($limit <= 1) ? $stmt->fetch() : $stmt->fetchAll();
+                return $stmt->fetch();
             }
         } catch (PDOException $e) {
 
