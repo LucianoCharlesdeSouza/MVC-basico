@@ -167,7 +167,7 @@ class Request
      */
     public function file($field)
     {
-        return $_FILES[$field];
+        return isset($_FILES[$field]) ? $_FILES[$field] : false;
     }
 
     /**
@@ -178,7 +178,7 @@ class Request
      */
     public function hasFile($field)
     {
-        return ( isset($_FILES[$field]) && $_FILES[$field]['name'] != '' );
+        return (isset($_FILES[$field]) && $_FILES[$field]['name'] != '' );
     }
 
     /**
