@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Model
 
@@ -193,7 +194,7 @@ class Model
      * @param $value_field
      * @return bool
      */
-    public function update(array $data, $field, $value_field)
+    public function update(array $data, $field, $valueField, $condition = '=')
     {
         $fields = [];
 
@@ -204,7 +205,7 @@ class Model
 
         $fields = implode(', ', $fields);
 
-        $sql = "UPDATE {$this->table} SET {$fields} WHERE {$field} = :id";
+        $sql = "UPDATE {$this->table} SET {$fields} WHERE {$field} {$condition} :id";
 
         $stmt = $this->db->prepare($sql);
 
@@ -229,7 +230,7 @@ class Model
             $stmt->bindValue(":{$key}", $value, $param);
         }
 
-        $stmt->bindValue(":id", $value_field, (is_int($value)) ? PDO::PARAM_INT : PDO::PARAM_STR);
+        $stmt->bindValue(":id", $valueField, (is_int($value)) ? PDO::PARAM_INT : PDO::PARAM_STR);
 
         try {
 
@@ -253,13 +254,13 @@ class Model
      * @param $value_field
      * @return bool
      */
-    public function delete($field, $value_field)
+    public function delete($field, $valueField, $condition = '=')
     {
-        $sql = "DELETE FROM {$this->table} WHERE {$field} = :{$field}";
+        $sql = "DELETE FROM {$this->table} WHERE {$field} {$condition} :{$field}";
 
         $stmt = $this->db->prepare($sql);
 
-        $stmt->bindValue(":{$field}", $value_field);
+        $stmt->bindValue(":{$field}", $valueField);
 
         try {
 
@@ -303,11 +304,9 @@ class Model
 
             if ($stmt->rowCount() > 0) {
 
-                $db = database();
+                $fetchMode = database('fetch_mode');
 
-                $fetch_mode = $db['fetch_mode'];
-
-                return ($fetch_mode == 5) ? $stmt->fetch()->max_id : $stmt->fetch()['max_id'];
+                return ($fetchMode == 5) ? $stmt->fetch()->max_id : $stmt->fetch()['max_id'];
             }
         } catch (PDOException $e) {
 
