@@ -123,7 +123,8 @@ class makeController extends Controller
         $class .= "{" . PHP_EOL;
 
         $class .= 'protected $table = "' . $table . '";' . PHP_EOL;
-
+        $class .= 'public $rules = [];' . PHP_EOL;
+        
         $class .= "}";
 
         $this->createFile($file_, $class);
