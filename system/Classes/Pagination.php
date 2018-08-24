@@ -183,11 +183,7 @@ trait Pagination
                 return true;
             }
 
-            if ($stmt->rowCount() > 0 && $stmt->rowCount() < 2) {
-                return $stmt->fetch();
-            }
-
-            if ($stmt->rowCount() > 0 && $stmt->rowCount() > 1) {
+            if ($stmt->rowCount() > 0) {
                 return $stmt->fetchAll();
             }
             
