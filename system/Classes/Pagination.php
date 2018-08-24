@@ -81,9 +81,9 @@ trait Pagination
      * @param array|null $Fields
      * @return array
      */
-    public function fullQuery($query, array $fields = null)
+    public function fullQuery($query, array $bindValue = null)
     {
-        return $this->fullSql($query, $fields);
+        return $this->fullSql($query, $bindValue);
     }
 
     /**
@@ -183,9 +183,16 @@ trait Pagination
                 return true;
             }
 
-            if ($stmt->rowCount() > 0) {
+            if ($stmt->rowCount() > 0 && $stmt->rowCount() < 2) {
+                return $stmt->fetch();
+            }
+
+            if ($stmt->rowCount() > 0 && $stmt->rowCount() > 1) {
                 return $stmt->fetchAll();
             }
+            
+            return false;
+            
         } catch (\PDOException $e) {
             die($e->getMessage());
         }
