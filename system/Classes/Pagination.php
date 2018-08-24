@@ -103,7 +103,7 @@ trait Pagination
      * Método que recebe um array para usar como substitutos no Bind
      * @param array $placesValues
      */
-    public function places(array $placesValues)
+    public function bindValues(array $placesValues)
     {
         $this->places = $placesValues;
     }
