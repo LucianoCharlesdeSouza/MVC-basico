@@ -314,4 +314,51 @@ class Model
         }
     }
 
+    /**
+     * Método que recebe uma string SQL,
+     * podendo ou não receber também um array para as substituições
+     * no Bind
+     * @param $Query string
+     * @param array|null $Fields
+     * @return array
+     */
+    public function fullQuery($query, array $bindValues = null)
+    {
+        try {
+            $sql = strtolower($query);
+
+            $update = (strpos($sql, "update") !== false) ? true : false;
+            $delete = (strpos($sql, "delete") !== false) ? true : false;
+            $insert = (strpos($sql, "insert") !== false) ? true : false;
+
+            $stmt = $this->db->prepare($query);
+            $this->createBind($stmt, $bindValues);
+            $stmt->execute();
+
+            if ($update) {
+                return true;
+            }
+
+            if ($delete) {
+                return true;
+            }
+
+            if ($insert) {
+                return true;
+            }
+
+            if ($stmt->rowCount() > 0 && $stmt->rowCount() == 1) {
+                return $stmt->fetch();
+            }
+
+            if ($stmt->rowCount() > 0 && $stmt->rowCount() > 1) {
+                return $stmt->fetchAll();
+            }
+
+            return false;
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
 }
