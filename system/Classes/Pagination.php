@@ -74,19 +74,6 @@ trait Pagination
     }
 
     /**
-     * Método que recebe uma string SQL,
-     * podendo ou não receber também um array para as substituições
-     * no Bind
-     * @param $Query string
-     * @param array|null $Fields
-     * @return array
-     */
-    public function fullQuery($query, array $bindValue = null)
-    {
-        return $this->fullSql($query, $bindValue);
-    }
-
-    /**
      * Método que recebe uma string SQL para retornar
      * os itens para a paginação
      * @param $Query string
@@ -186,9 +173,8 @@ trait Pagination
             if ($stmt->rowCount() > 0) {
                 return $stmt->fetchAll();
             }
-            
+
             return false;
-            
         } catch (\PDOException $e) {
             die($e->getMessage());
         }
