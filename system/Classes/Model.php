@@ -360,5 +360,81 @@ class Model
             die($e->getMessage());
         }
     }
+    
+    /**
+     * Método que aplica a regra unique a um campo do formulário
+     * ao ser usado na inserção dos registros
+     * @param type $key
+     * @throws Exception
+     */
+    public function addRulesUniqueOnInsert($key)
+    {
+        try {
+            if (!key_exists($key, $this->rules)) {
+                throw new Exception("O índice <strong>{$key}</strong> não existe para ser validado!");
+            }
+            $value = $this->rules[$key] . "|unique:{$this->table}";
+            $this->rules[$key] = $value;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    /**
+     * Método que aplica a regra unique a um campo do formulário
+     * ao ser usado na atualização dos registros
+     * @param type $key
+     * @param type $field
+     * @param type $value
+     * @throws Exception
+     */
+    public function addRulesUniqueOnUpdate($key, $field, $value)
+    {
+        try {
+            if (!key_exists($key, $this->rules)) {
+                throw new Exception("O índice <strong>{$key}</strong> não existe para ser validado!");
+            }
+            $val = $this->rules[$key] . "|unique:{$this->table},{$field},{$value}";
+            $this->rules[$key] = $val;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    /**
+     * Método que aplica regras no campo do formulário
+     * @param type $key
+     * @param type $rules
+     * @throws Exception
+     */
+    public function addRules($key, $rules)
+    {
+        try {
+            if (key_exists($key, $this->rules)) {
+                throw new Exception("O índice <strong>{$key}</strong> já existe para ser validado!");
+            }
+            $this->rules[$key] = $rules;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    /**
+     * Método que remove uma regra de validação
+     * @param type $key
+     * @throws Exception
+     */
+    public function removeRules($key)
+    {
+        try {
+            if (!key_exists($key, $this->rules)) {
+                throw new Exception("O índice <strong>{$key}</strong> não existe para ser removido!");
+            }
+
+            unset($this->rules[$key]);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
 }
