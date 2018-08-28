@@ -124,6 +124,7 @@ class makeController extends Controller
 
         $class .= 'protected $table = "' . $table . '";' . PHP_EOL;
         $class .= 'public $rules = [];' . PHP_EOL;
+        $class .= 'public $messages = [];' . PHP_EOL;
         
         $class .= "}";
 
