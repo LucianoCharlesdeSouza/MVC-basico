@@ -191,4 +191,102 @@ trait ValidationTrait
         $this->msgsErrors[] = str_replace(':message', $errorMsg, $this->formatMsgs);
     }
 
+    /**
+     * Método que valida se o value do indice é uma URL
+     *
+     * @param $name
+     * @param $val
+     * @return boolean
+     */
+    private function url($name, $val)
+    {
+        if(empty($val) || filter_var($val, FILTER_VALIDATE_URL) == true) {
+            return true;
+        }
+
+        $this->error = true;
+
+        if (isset($this->messages_[$name]['url'])) {
+            $errorMsg = $this->messages_[$name]['url'];
+        } else {
+            $errorMsg = "O campo <b>{$name}</b> não é uma URL válida.";
+        }
+        $this->msgsErrors[] = str_replace(':message', $errorMsg, $this->formatMsgs);
+    }
+    
+    /**
+     * Método que valida se o value do indice é uma URI
+     *
+     * @param $name
+     * @param $val
+     * @return boolean
+     */
+    private function uri($name, $val)
+    {
+        if(empty($val) || filter_var($value, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => "/^[A-Za-z0-9-\/_]+$/"))) == true) {
+            return true;
+        }
+
+        $this->error = true;
+
+        if (isset($this->messages_[$name]['uri'])) {
+            $errorMsg = $this->messages_[$name]['uri'];
+        } else {
+            $errorMsg = "O campo <b>{$name}</b> não é uma URI válida.";
+        }
+        $this->msgsErrors[] = str_replace(':message', $errorMsg, $this->formatMsgs);
+    }   
+
+    /**
+     * Método que valida se o value do indice é uma data
+     *
+     * @param $name
+     * @param $val
+     * @return boolean
+     */
+    private function date($name, $val)
+    {
+        if(empty($val)) {
+            return true;
+        }
+
+        if(!preg_match('/^([0-9]{4})-((0?[1-9])|(1[0-2]))-((0?[1-9])|([1-2][0-9])|(3[01]))( [0-9]{2}:[0-9]{2}:[0-9]{2})?$/ui', $val, $matches) == true) {
+            return false;
+        }
+
+        return checkdate(intval($matches[2]), intval($matches[5]), intval($matches[0]));
+
+        $this->error = true;
+
+        if (isset($this->messages_[$name]['date'])) {
+            $errorMsg = $this->messages_[$name]['date'];
+        } else {
+            $errorMsg = "O campo <b>{$name}</b> não é uma data válida.";
+        }
+        $this->msgsErrors[] = str_replace(':message', $errorMsg, $this->formatMsgs);
+    }      
+
+    /**
+     * Método que valida se o value do indice é um valor monetário
+     *
+     * @param $name
+     * @param $val
+     * @return boolean
+     */
+    private function money($name, $val)
+    {
+        if(empty($val) || preg_match('/^[0-9]{1,10}(\.[0-9]{1,9})?$/ui', $val)) {
+            return true;
+        }
+
+        $this->error = true;
+
+        if (isset($this->messages_[$name]['money'])) {
+            $errorMsg = $this->messages_[$name]['money'];
+        } else {
+            $errorMsg = "O campo <b>{$name}</b> não está em formato monetário (R$).";
+        }
+        $this->msgsErrors[] = str_replace(':message', $errorMsg, $this->formatMsgs);
+    }     
+
 }
