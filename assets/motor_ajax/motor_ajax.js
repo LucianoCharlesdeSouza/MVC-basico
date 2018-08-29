@@ -40,6 +40,11 @@ $(function() {
                  * Recupera os dados
                  */
                 returnData(data);
+                
+                /**
+                 * Fecha a box de msg
+                 */
+                closeBox();
 
                 /**
                  * Limpar campos do formulario
@@ -87,6 +92,11 @@ $(function() {
                 returnData(data);
 
                 /**
+                 * Fecha a box de msg
+                 */
+                closeBox();
+                
+                /**
                  * Redireciona
                  */
                 redirect(data);
@@ -123,6 +133,14 @@ $(function() {
         }
     }
 
+    function closeBox()
+    {
+        window.setTimeout(function() {
+            $(".alerta").fadeOut('slow');
+        }, 4000);
+
+    }
+    
     function clearFields(data)
     {
         if (data.clearFields) {
