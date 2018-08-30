@@ -32,7 +32,7 @@ $(function() {
             },
             success: function(data) {
                 $(".btnAjaxForm").removeClass("fa-spinner fa-spin");
-                $(".btnAjaxClose").html('&times;');
+
                 $('.alerta').fadeIn('slow');
 
 
@@ -40,11 +40,7 @@ $(function() {
                  * Recupera os dados
                  */
                 returnData(data);
-                
-                /**
-                 * Fecha a box de msg
-                 */
-                closeBox();
+
 
                 /**
                  * Limpar campos do formulario
@@ -78,7 +74,6 @@ $(function() {
             },
             success: function(data) {
 
-                $(".btnAjaxClose").html('&times;');
                 $('.alerta').fadeIn('slow');
 
                 /**
@@ -91,11 +86,6 @@ $(function() {
                  */
                 returnData(data);
 
-                /**
-                 * Fecha a box de msg
-                 */
-                closeBox();
-                
                 /**
                  * Redireciona
                  */
@@ -125,11 +115,13 @@ $(function() {
     function returnData(data)
     {
         if (data.return) {
+            $(".btnAjaxClose").html('&times;');
             $('.alerta').addClass(data.return[0]);
             $('.icones').addClass(data.return[1]);
             $('.titulo').html(data.return[2]);
             $('.result').html(data.return[3]);
 
+            closeBox();
         }
     }
 
@@ -140,7 +132,7 @@ $(function() {
         }, 4000);
 
     }
-    
+
     function clearFields(data)
     {
         if (data.clearFields) {
