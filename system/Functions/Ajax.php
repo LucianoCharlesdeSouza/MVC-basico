@@ -28,6 +28,7 @@ if (!function_exists('ajaxForm')) {
 
     function ajaxForm($controller, $class = null)
     {
+        Session::set('ajaxForm', true);
         return 'class="ajaxForm ' . $class . '" data-controller="' . $controller . '"';
     }
 
