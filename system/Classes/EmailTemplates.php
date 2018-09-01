@@ -86,13 +86,13 @@ trait EmailTemplates
         $mail_content .= '</style>';
 
         $body_mail = "<p style='font-size: 1.5em;'>";
-        $body_mail .= "Ta quase, {$name}, agora basta você recuperar a sua senha para o seu primeiro acesso! " . mailer('mail_enviado_por') . "!";
+        $body_mail .= "Ta quase, {$name}, agora basta você confirmar o recebimento deste e-mail, quer saber como? CLIQUE ABAIXO! ";
         $body_mail .= "</p>";
         $body_mail .= "<p>Isso é um procedimento padrão em nossos sistemas.</p>";
-        $body_mail .= "<p>Então, bora lá, fazermos seu primeiro acesso?";
-        $body_mail .= "<a title='Criar Nova Senha' href='" . $link . "'> CLIQUE AQUI!</a>!</p>";
-        $body_mail .= "<p>Você será redirecionado para uma página onde poderá definir uma nova senha de acesso ao painel! ";
-        $body_mail .= "Cuide bem dos seus dados.</p>";
+        $body_mail .= "<p>Então bora lá, fazermos seu primeiro acesso?";
+        $body_mail .= "<a title='Confirmar e-mail' style='color:green;tex-decoration:none;' href='" . $link . "'> CONFIRME SEU E-MAIL!</a>!</p>";
+        $body_mail .= "<p>Cuide bem dos seus dados.</p>";
+        $body_mail .= "<p>Enviado por: " . mailer('mail_enviado_por') . "!</p>";
 
         $msg = str_replace('#mail_body#', $body_mail, $mail_content);
 
