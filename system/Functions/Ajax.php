@@ -41,7 +41,7 @@ if (!function_exists('btnAjaxForm')) {
 
     function btnAjaxForm($value, $class = null)
     {
-        return '<button class="' . $class . '"><i class="btnAjaxForm fa "></i>' . $value . '</button>';
+        return '<button class="' . $class . '"><i class="btnAjaxForm fa "></i> ' . $value . '</button>';
     }
 
 }
