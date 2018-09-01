@@ -39,9 +39,9 @@ class Controller
      * @param $viewName
      * @param array $viewData
      */
-    public function loadTemplate($viewName, $viewData = array())
+    public function loadTemplate($viewName, $viewData = array(), $templateName = 'template')
     {
-        include 'views/template.php';
+        include "views/{$templateName}.php";
     }
 
     /**
