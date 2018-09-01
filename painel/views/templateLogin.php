@@ -73,10 +73,5 @@
         <script src="<?php echo base_url("/assets/js/jquery.js"); ?>"></script>
         <script src="<?php echo base_url("/assets/js/bootstrap.min.js"); ?>"></script>
 
-        <script>
-            var BASE = '<?php echo base_url(); ?>';
-        </script>
-        <script src="<?php echo back_url("assets/motor_ajax/motor_ajax.js"); ?>"></script>
-
     </body>
 </html>
