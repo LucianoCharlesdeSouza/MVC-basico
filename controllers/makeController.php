@@ -145,8 +145,7 @@ class makeController extends Controller
 
     private function nameModel($path, $name)
     {
-        $model = strtolower($name);
-        $model_ = ucfirst($model);
+        $model_ = $name;
 
         $site = dirname(__DIR__) . '/models/';
         $other_path = dirname(__DIR__) . "/" . strtolower($path) . "/models/";
