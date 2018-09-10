@@ -221,7 +221,7 @@ class Request
     public function csrfValid($redirectTo = "/notFound/unauthorized")
     {
 
-        if (Session::get('_token') != $this->post('_token')) {
+        if (Session::get('_token') !== $this->post('_token')) {
             if (Session::has('ajaxForm')) {
                 Session::destroy('ajaxForm');
                 $data['redirect'] = Alert::AjaxRedirect($redirectTo, 1000);
