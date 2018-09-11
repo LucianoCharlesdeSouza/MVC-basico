@@ -57,6 +57,49 @@ trait EmailTemplates
     }
 
     /**
+     * Método que retorna o html para o envio de e-mail sobre o bloqueio do login duplo
+     * @param $name
+     * @param $timeBlocked
+     * @return mixed
+     */
+    public function templateBlockedAccess($name, $timeBlocked)
+    {
+        $mail_content = '<table width="550" style="font-family: "Trebuchet MS", sans-serif;">';
+        $mail_content .= '<tr><td>';
+        $mail_content .= '<font face="Trebuchet MS" size="3">';
+        $mail_content .= '#mail_body#';
+        $mail_content .= '</font>';
+        $mail_content .= '<p style="font-size: 0.875em;">';
+        $mail_content .= '<br><br>';
+
+        $mail_content .= '</p>';
+        $mail_content .= '</td></tr>';
+        $mail_content .= '</table>';
+        $mail_content .= '<style>';
+        $mail_content .= 'body, img{';
+        $mail_content .= 'max-width: 550px !important;';
+        $mail_content .= 'height: auto !important;';
+        $mail_content .= '}';
+        $mail_content .= 'p{';
+        $mail_content .= 'margin-botton: 15px 0 !important;';
+        $mail_content .= '}';
+        $mail_content .= '</style>';
+
+        $body_mail = "<p style='font-size: 1.5em;'>";
+        $body_mail .= "Olá, {$name}, bloqueamos seu acesso ao " . mailer('mail_enviado_por') . "!";
+        $body_mail .= "</p>";
+        $body_mail .= "<p><strong>Motivo:</strong> ";
+        $body_mail .= "Acesso com sessões diferentes usando seus dados!</p>";
+        $body_mail .= "<p>Você ficará impedido de acessar novamente até:";
+        $body_mail .= "<strong>" . date("d/m/Y H:i:s", strtotime($timeBlocked)) . "</strong></p>";
+        $body_mail .= "<p>Cuide bem dos seus dados.</p>";
+
+        $msg = str_replace('#mail_body#', $body_mail, $mail_content);
+
+        return $msg;
+    }
+
+    /**
      * Método que retorna o html para o envio de e-mail sobre o primeiro acesso
      * @param $name
      * @param $link
