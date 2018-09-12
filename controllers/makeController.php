@@ -125,7 +125,7 @@ class makeController extends Controller
         $class .= 'protected $table = "' . $table . '";' . PHP_EOL;
         $class .= 'public $rules = [];' . PHP_EOL;
         $class .= 'public $messages = [];' . PHP_EOL;
-        
+
         $class .= "}";
 
         $this->createFile($file_, $class);
@@ -215,6 +215,7 @@ class makeController extends Controller
 
     private function addConstruct()
     {
+        $class = '';
         $class .= "/**" . PHP_EOL;
         $class .= "* Construtor da classe" . PHP_EOL;
         $class .= "*/" . PHP_EOL;
@@ -228,6 +229,7 @@ class makeController extends Controller
 
     private function addIndex($folder)
     {
+        $class = '';
         $class .= "/**" . PHP_EOL;
         $class .= "* Exibe uma listagem do recurso" . PHP_EOL;
         $class .= "*" . PHP_EOL;
@@ -245,6 +247,7 @@ class makeController extends Controller
 
     private function addCreate($folder)
     {
+        $class = '';
         $class .= "/**" . PHP_EOL;
         $class .= "* Exibe o formulario para criar um novo recurso." . PHP_EOL;
         $class .= "*" . PHP_EOL;
@@ -262,6 +265,7 @@ class makeController extends Controller
 
     private function addStore()
     {
+        $class = '';
         $class .= "/**" . PHP_EOL;
         $class .= "* Captura os dados do formulario para manipular" . PHP_EOL;
         $class .= "*" . PHP_EOL;
@@ -276,6 +280,7 @@ class makeController extends Controller
 
     private function addShow($folder)
     {
+        $class = '';
         $class .= "/**" . PHP_EOL;
         $class .= "* Exibe um recurso especifico." . PHP_EOL;
         $class .= "*" . PHP_EOL;
@@ -294,6 +299,7 @@ class makeController extends Controller
 
     private function addEdit($folder)
     {
+        $class = '';
         $class .= "/**" . PHP_EOL;
         $class .= "* Exibe o formulario para editar um recurso especifico." . PHP_EOL;
         $class .= "*" . PHP_EOL;
@@ -312,6 +318,7 @@ class makeController extends Controller
 
     private function addUpdate()
     {
+        $class = '';
         $class .= "/**" . PHP_EOL;
         $class .= "* Atualiza um recurso especifico." . PHP_EOL;
         $class .= "*" . PHP_EOL;
@@ -327,6 +334,7 @@ class makeController extends Controller
 
     private function addDelete()
     {
+        $class = '';
         $class .= "/**" . PHP_EOL;
         $class .= "* Exclui um recurso especifico." . PHP_EOL;
         $class .= "*" . PHP_EOL;
