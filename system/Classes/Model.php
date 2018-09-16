@@ -75,7 +75,7 @@ class Model
 
             if ($stmt->rowCount() > 0) {
 
-                return ($limit == 1 || $stmt->rowCount() == 1) ? $stmt->fetch() : $stmt->fetchAll();
+                return ($limit == 1 ) ? $stmt->fetch() : $stmt->fetchAll();
             }
         } catch (PDOException $e) {
 
