@@ -1,6 +1,5 @@
 <IfModule mod_rewrite.c>
 Options -Multiviews
-Option All -Indexes
 RewriteEngine on
 
 # WWW Redirect.
