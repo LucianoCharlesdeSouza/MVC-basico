@@ -347,11 +347,7 @@ class Model
                 return true;
             }
 
-            if ($stmt->rowCount() > 0 && $stmt->rowCount() == 1) {
-                return $stmt->fetch();
-            }
-
-            if ($stmt->rowCount() > 0 && $stmt->rowCount() > 1) {
+            if ($stmt->rowCount() > 0) {
                 return $stmt->fetchAll();
             }
 
