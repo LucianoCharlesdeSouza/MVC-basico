@@ -14,5 +14,5 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
-php_value date.timezone "America/Sao_Paulo"
+#php_value date.timezone "America/Sao_Paulo"
 </IfModule>
