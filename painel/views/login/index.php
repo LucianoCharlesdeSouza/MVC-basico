@@ -28,6 +28,6 @@
         <a href="#">Recuperar senha</a>
     </p>
 
-    <p class="text-center mt-5 mb-3 text-muted">&copy; MVC-git / 2017-2018</p>
+    <p class="text-center mt-5 mb-3 text-muted">&copy; MVC-git / 2018-<?php echo date('Y');?></p>
 
 </form>
