@@ -361,6 +361,7 @@ class installController extends Controller
         $class .= "'app_name' => '" . $this->request->post('app_Name') . "'," . PHP_EOL;
         $class .= "'app_key' => '" . $this->request->post('app_Key') . "'," . PHP_EOL;
         $class .= "'app_time_blocked' => 59," . PHP_EOL;
+        $class .= "'recover_token_in' => 2," . PHP_EOL;     
         $class .= "'app_time_zone' => 'America/Sao_Paulo'" . PHP_EOL;
         $class .= "];";
         return $class;
