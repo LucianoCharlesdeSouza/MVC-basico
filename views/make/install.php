@@ -216,7 +216,7 @@
 
 
         </div>
-        <p class="text-center mt-5 mb-3 text-muted">&copy; My App in MVC 2017-2018</p>
+        <p class="text-center mt-5 mb-3 text-muted">&copy; My App in MVC 2018-<?php echo date('Y');?></p>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script>
