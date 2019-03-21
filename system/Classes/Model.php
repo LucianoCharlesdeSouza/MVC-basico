@@ -48,24 +48,8 @@ class Model
 
         if ($bindValue) {
             foreach ($bindValue as $key => $value) {
-
-                switch ($value) {
-
-                    case is_int($value):
-                        $param = PDO::PARAM_INT;
-                        break;
-                    case is_bool($value):
-                        $param = PDO::PARAM_BOOL;
-                        break;
-                    case is_null($value):
-                        $param = PDO::PARAM_NULL;
-                        break;
-                    case is_string($value):
-                        $param = PDO::PARAM_STR;
-                        break;
-                }
-
-                $stmt->bindValue(":{$key}", $value, $param);
+                
+               $stmt->bindValue(":{$key}", $value);
             }
         }
 
@@ -98,23 +82,7 @@ class Model
 
         $stmt = $this->db->prepare($sql);
 
-        switch ($value) {
-
-            case is_int($value):
-                $param = PDO::PARAM_INT;
-                break;
-            case is_bool($value):
-                $param = PDO::PARAM_BOOL;
-                break;
-            case is_null($value):
-                $param = PDO::PARAM_NULL;
-                break;
-            case is_string($value):
-                $param = PDO::PARAM_STR;
-                break;
-        }
-
-        $stmt->bindValue(":{$field}", $value, $param);
+        $stmt->bindValue(":{$field}", $value);
 
         try {
 
@@ -150,23 +118,7 @@ class Model
 
         foreach ($data as $key => $value) {
 
-            switch ($value) {
-
-                case is_int($value):
-                    $param = PDO::PARAM_INT;
-                    break;
-                case is_bool($value):
-                    $param = PDO::PARAM_BOOL;
-                    break;
-                case is_null($value):
-                    $param = PDO::PARAM_NULL;
-                    break;
-                case is_string($value):
-                    $param = PDO::PARAM_STR;
-                    break;
-            }
-
-            $stmt->bindValue(":{$key}", $value, $param);
+            $stmt->bindValue(":{$key}", $value);
         }
 
         try {
@@ -211,23 +163,7 @@ class Model
 
         foreach ($data as $key => $value) {
 
-            switch ($value) {
-
-                case is_int($value):
-                    $param = PDO::PARAM_INT;
-                    break;
-                case is_bool($value):
-                    $param = PDO::PARAM_BOOL;
-                    break;
-                case is_null($value):
-                    $param = PDO::PARAM_NULL;
-                    break;
-                case is_string($value):
-                    $param = PDO::PARAM_STR;
-                    break;
-            }
-
-            $stmt->bindValue(":{$key}", $value, $param);
+            $stmt->bindValue(":{$key}", $value);
         }
 
         $stmt->bindValue(":id", $valueField, (is_int($value)) ? PDO::PARAM_INT : PDO::PARAM_STR);
