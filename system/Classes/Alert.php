@@ -11,45 +11,29 @@
 class Alert
 {
 
-    public static function AjaxSuccess($descryption, $title = "")
+    public static function AjaxSuccess($descryption, $title = " Sucesso!")
     {
-        if ($title != ""):
-            return ["alert alert-success", "fa fa-check", $title, $descryption];
-        endif;
-
-        return ["alert alert-success", "fa fa-check", " Sucesso!", $descryption];
+        return ["alert alert-success", "fa fa-check", $title, $descryption];
     }
 
-    public static function AjaxInfo($descryption, $title = "")
+    public static function AjaxInfo($descryption, $title = " Informação!")
     {
-        if ($title != ""):
-            return ["alert alert-info", "fa fa-info", $title, $descryption];
-        endif;
-        return ["alert alert-info", "fa fa-info", " Informação!", $descryption];
+        return ["alert alert-info", "fa fa-info", $title, $descryption];
     }
 
-    public static function AjaxWarning($descryption, $title = "")
+    public static function AjaxWarning($descryption, $title = " Atenção!")
     {
-        if ($title != ""):
-            return ["alert alert-warning", "fa fa-warning", $title, $descryption];
-        endif;
-        return ["alert alert-warning", "fa fa-warning", " Atenção!", $descryption];
+        return ["alert alert-warning", "fa fa-warning", $title, $descryption];
     }
 
-    public static function AjaxDanger($descryption, $title = "")
+    public static function AjaxDanger($descryption, $title = " Cuidado!")
     {
-        if ($title != ""):
-            return ["alert alert-danger", "fa fa-ban", $title, $descryption];
-        endif;
-        return ["alert alert-danger", "fa fa-ban", " Cuidado!", $descryption];
+        return ["alert alert-danger", "fa fa-ban", $title, $descryption];
     }
 
-    public static function AjaxRedirect($toWhere, $time = null)
+    public static function AjaxRedirect($toWhere, $time = 3200)
     {
-        if ($time != null):
-            return [$toWhere, $time];
-        endif;
-        return [$toWhere, 3200];
+        return [$toWhere, $time];
     }
 
 }
