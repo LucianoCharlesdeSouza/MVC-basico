@@ -199,13 +199,9 @@ trait Pagination
      */
     private function totalRecords()
     {
-        $newQuery = explode('from', strtolower($this->query));
-        $this->queryCount = str_replace($this->query, "select count(*) as total from " . $newQuery[1], $this->query);
-        $this->queryCount = substr($this->queryCount, 0, strpos($this->queryCount, "limit"));
-        $db = database();
-
-        $fetchMode = $db['fetch_mode'];
-        return ($fetchMode == 5) ? $this->fullSql($this->queryCount, $this->places)[0]->total : $this->fullSql($this->queryCount, $this->places)[0]['total'];
+        $sql = str_replace(" LIMIT " . $this->indexPage . "," . $this->maxPage, '', $this->query);
+        $total = ($this->fullSql($sql, $this->places)) ? count($this->fullSql($sql, $this->places)) : 0;
+        return $total;
     }
 
     /**
