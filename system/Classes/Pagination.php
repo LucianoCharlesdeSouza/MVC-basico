@@ -221,6 +221,7 @@ trait Pagination
     {
         if (($this->getPager() > $this->totalPages() || $this->getPager() < 1) && $this->totalRecords() != 0) {
             header("Location: " . $this->ReturnPageValid($this->page) . "?" . $this->page . "=" . $this->totalPages());
+            exit;
         }
     }
 
