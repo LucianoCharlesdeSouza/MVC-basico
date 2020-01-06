@@ -399,6 +399,7 @@ class installController extends Controller
         $class .= "'host' => '" . $this->request->post('database_Host') . "'," . PHP_EOL;
         $class .= "'port' => " . $this->request->post('database_Port') . "," . PHP_EOL;
         $class .= "'database' => '" . $this->request->post('database_Name') . "'," . PHP_EOL;
+        $class .= "'charset' => 'utf8'," . PHP_EOL;
         $class .= "'username' => '" . $this->request->post('database_UserName') . "'," . PHP_EOL;
         $class .= "'password' => '" . $this->request->post('database_UserPassword') . "'," . PHP_EOL;
         $class .= "'unix_socket' => null," . PHP_EOL;
@@ -413,6 +414,7 @@ class installController extends Controller
         $class .= "'host' => 'localhost'," . PHP_EOL;
         $class .= "'port' => 3306," . PHP_EOL;
         $class .= "'database' => 'grupo++'," . PHP_EOL;
+        $class .= "'charset' => 'utf8'," . PHP_EOL;
         $class .= "'username' => 'root'," . PHP_EOL;
         $class .= "'password' => ''," . PHP_EOL;
         $class .= "'unix_socket' => null," . PHP_EOL;
