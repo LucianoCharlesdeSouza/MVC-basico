@@ -33,7 +33,7 @@ if (!function_exists('app')) {
 
         $app = include dirname(__DIR__, 2) . '/config/app.php';
 
-        return (isset($key)) ? $app[$key] : $app;
+        return ($app[$key]) ?? $app;
     }
 
 }
