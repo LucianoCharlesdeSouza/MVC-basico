@@ -34,7 +34,7 @@ class Cookie
      */
     public static function get($name, $default = null)
     {
-        return isset($_COOKIE[$name]) ? $_COOKIE[$name] : $default;
+        return ($_COOKIE[$name]) ?? $default;
     }
 
     /**
