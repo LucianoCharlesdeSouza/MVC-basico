@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Classe Helpers
 
@@ -10,10 +11,10 @@
 class Helpers
 {
 
-    private static $String;
-    private static $Limite;
-    private static $Format;
-    private static $Data;
+    private static $string;
+    private static $limit;
+    private static $format;
+    private static $data;
 
     /**
      * Método que valida um CPF
@@ -22,70 +23,85 @@ class Helpers
      */
     public static function CPF($Cpf)
     {
-        self::$Data = preg_replace('/[^0-9]/', '', $Cpf);
-        if (strlen(self::$Data) != 11):
+        self::$data = preg_replace('/[^0-9]/', '', $Cpf);
+
+        if (strlen(self::$data) !== 11) :
             return false;
         endif;
+
         $digitoA = 0;
         $digitoB = 0;
+
         for ($i = 0, $x = 10; $i <= 8; $i++, $x--) {
-            $digitoA += self::$Data[$i] * $x;
+            $digitoA += self::$data[$i] * $x;
         }
+
         for ($i = 0, $x = 11; $i <= 9; $i++, $x--) {
-            if (str_repeat($i, 11) == self::$Data) {
+            if (str_repeat($i, 11) == self::$data) {
                 return false;
             }
-            $digitoB += self::$Data[$i] * $x;
+            $digitoB += self::$data[$i] * $x;
         }
-        $somaA = (($digitoA % 11) < 2 ) ? 0 : 11 - ($digitoA % 11);
-        $somaB = (($digitoB % 11) < 2 ) ? 0 : 11 - ($digitoB % 11);
-        if ($somaA != self::$Data[9] || $somaB != self::$Data[10]) {
+
+        $somaA = (($digitoA % 11) < 2) ? 0 : 11 - ($digitoA % 11);
+        $somaB = (($digitoB % 11) < 2) ? 0 : 11 - ($digitoB % 11);
+
+        if ($somaA != self::$data[9] || $somaB != self::$data[10]) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     /**
      * Método que limita a qtd de palavras em uma string
      * @param $string
-     * @param $limite
-     * @param null $terminarCom
+     * @param $limit
+     * @param null $endWith
      * @return string
      */
-    public static function limitWords($string, $limite, $terminarCom = null)
+    public static function limitWords($string, $limit, $endWith = null)
     {
-        self::$String = strip_tags(trim($string));
-        self::$Limite = (int) $limite;
-        $ArrayPalavras = explode(' ', self::$String);
-        $NumPalavras = count($ArrayPalavras);
-        $NovasPalavras = implode(' ', array_slice($ArrayPalavras, 0, self::$Limite));
-        $TerminarCom = (empty($terminarCom) ? '...' : ' ' . $terminarCom);
-        $Resultado = (self::$Limite < $NumPalavras ? $NovasPalavras . $TerminarCom : self::$String);
+        self::$string = strip_tags(trim($string));
+
+        self::$limit = (int) $limit;
+
+        $wordArray = explode(' ', self::$string);
+
+        $numberOfWords = count($wordArray);
+
+        $newWords = implode(' ', array_slice($wordArray, 0, self::$limit));
+
+        $endWith = (empty($endWith) ? '...' : ' ' . $endWith);
+
+        $Resultado = (self::$limit < $numberOfWords ? $newWords . $endWith : self::$string);
+
         return $Resultado;
     }
 
     /**
-     * Método que limita a qtd de caracteres em uma string
+     * Método que limita a qtd de characters em uma string
      * @param $string
-     * @param $limite
-     * @param null $terminarCom
-     * @param string $ocorrencia
+     * @param $limit
+     * @param null $endWith
+     * @param string $occurrence
      * @return string
      */
-    public static function limitChars($string, $limite, $terminarCom = null, $ocorrencia = "")
+    public static function limitChars($string, $limit, $endWith = null, $occurrence = "")
     {
-        self::$String = strip_tags($string);
-        self::$Limite = (int) $limite;
-        if (strlen(self::$String) <= self::$Limite) {
-            return self::$String;
-        } elseif ($ocorrencia != "") {
-            $caracteres = strrpos(mb_substr(self::$String, 0, self::$Limite), $ocorrencia);
-            return mb_substr(self::$String, 0, $caracteres) . $terminarCom;
-        } else {
-            $caracteres = mb_substr(self::$String, 0, self::$Limite);
-            return $caracteres . $terminarCom;
+        self::$string = strip_tags($string);
+        self::$limit = (int) $limit;
+
+        if (strlen(self::$string) <= self::$limit) {
+            return self::$string;
         }
+
+        if ($occurrence !== "") {
+            $characters = strrpos(mb_substr(self::$string, 0, self::$limit), $occurrence);
+            return mb_substr(self::$string, 0, $characters) . $endWith;
+        }
+
+        $characters = mb_substr(self::$string, 0, self::$limit);
+        return $characters . $endWith;
     }
 
     /**
@@ -95,9 +111,9 @@ class Helpers
      */
     public static function slug($string)
     {
-        self::$String = (string) $string;
-        self::$String = preg_replace('/[\t\n]/', ' ', self::$String);
-        self::$String = preg_replace('/\s{2,}/', ' ', self::$String);
+        self::$string = (string) $string;
+        self::$string = preg_replace('/[\t\n]/', ' ', self::$string);
+        self::$string = preg_replace('/\s{2,}/', ' ', self::$string);
         $list = array(
             'Š' => 'S',
             'š' => 's',
@@ -208,13 +224,13 @@ class Helpers
             '¨' => '-',
             ' ' => '-'
         );
-        self::$String = strtr(self::$String, $list);
+        self::$string = strtr(self::$string, $list);
 
-        self::$String = preg_replace('/-{2,}/', '-', self::$String);
+        self::$string = preg_replace('/-{2,}/', '-', self::$string);
 
-        self::$String = mb_strtolower(self::$String);
+        self::$string = mb_strtolower(self::$string);
 
-        return self::$String;
+        return self::$string;
     }
 
     /**
@@ -224,15 +240,14 @@ class Helpers
      */
     public static function isMail($email)
     {
-        self::$String = $email;
+        self::$string = $email;
 
-        self::$Format = '/[a-z0-9_\.\-]+@[a-z0-9_\.\-]*[a-z0-9_\.\-]+\.[a-z]{2,4}$/';
+        self::$format = '/[a-z0-9_\.\-]+@[a-z0-9_\.\-]*[a-z0-9_\.\-]+\.[a-z]{2,4}$/';
 
-        if (preg_match(self::$Format, self::$String)) {
+        if (preg_match(self::$format, self::$string)) {
             return true;
         }
 
         return false;
     }
-
 }
