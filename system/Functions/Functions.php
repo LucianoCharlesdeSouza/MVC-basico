@@ -14,10 +14,10 @@ if (!function_exists('database')) {
 
         if ($app['environment'] === 'development') {
 
-            return (isset($key)) ? $app['connections']['development'][$key] : $app['connections']['development'];
+            return ($app['connections']['development'][$key]) ?? $app['connections']['development'];
         }
 
-        return (isset($key)) ? $app['connections']['production'][$key] : $app['connections']['production'];
+        return ($app['connections']['production'][$key]) ?? $app['connections']['production'];
     }
 
 }
@@ -48,7 +48,7 @@ if (!function_exists('environment')) {
 
         $app = include dirname(__DIR__, 2) . '/config/environment.php';
 
-        return (isset($key)) ? $app[$key] : $app;
+        return ($app[$key]) ?? $app;
     }
 
 }
@@ -63,7 +63,7 @@ if (!function_exists('mailer')) {
 
         $app = include dirname(__DIR__, 2) . '/config/mail.php';
 
-        return (isset($key)) ? $app[$key] : $app;
+        return ($app[$key]) ?? $app;
     }
 
 }
