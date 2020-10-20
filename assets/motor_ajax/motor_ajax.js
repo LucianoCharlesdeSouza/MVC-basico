@@ -3,7 +3,9 @@ $(function() {
     var alerts = ["alert", "alert-info", "alert-success", "alert-danger", "alert-warning"];
     var icones = ["fa fa-ban", "fa fa-info", "fa fa-warning", "fa fa-check"];
 
-    $('.ajaxForm').submit(function() {
+    $('.ajaxForm').submit(function(event) {
+
+        event.preventDefault();
 
         var form = $(this);
         var controller = form.attr('data-controller');
@@ -16,7 +18,7 @@ $(function() {
             dataType: 'json',
             processData: false,
             contentType: false,
-            beforeSend: function(data) {
+            beforeSend: function(response) {
                 $(".btnAjaxForm").addClass("fa-spinner fa-spin");
                 $(".btnAjaxClose").html('');
 
@@ -30,7 +32,7 @@ $(function() {
 
 
             },
-            success: function(data) {
+            success: function(response) {
                 $(".btnAjaxForm").removeClass("fa-spinner fa-spin");
 
                 $('.alerta').fadeIn('slow');
@@ -39,23 +41,23 @@ $(function() {
                 /**
                  * Recupera os dados
                  */
-                returnData(data);
+                returnData(response);
 
 
                 /**
                  * Limpar campos do formulario
                  */
-                clearFields(data);
+                clearFields(response);
 
                 /**
                  * Redireciona
                  */
-                redirect(data);
+                redirect(response);
 
             }
 
         });
-        return false;
+
     });
 
     $(document).on("click", ".ajaxDeleteConfirmed", function() {
@@ -69,27 +71,27 @@ $(function() {
             data: {del_id: deletar_id},
             type: 'POST',
             dataType: 'json',
-            beforeSend: function(data) {
+            beforeSend: function(response) {
                 $(".btnAjaxClose").html('');
             },
-            success: function(data) {
+            success: function(response) {
 
                 $('.alerta').fadeIn('slow');
 
                 /**
                  * Aplica o efeito na tr da tabela ao excluir
                  */
-                deleted(data, tr);
+                deleted(response, tr);
 
                 /**
                  * Recupera os dados
                  */
-                returnData(data);
+                returnData(response);
 
                 /**
                  * Redireciona
                  */
-                redirect(data);
+                redirect(response);
 
             }
 
@@ -112,14 +114,14 @@ $(function() {
     });
 // FIM DO AjaxDELETE
 
-    function returnData(data)
+    function returnData(response)
     {
-        if (data.return) {
+        if (response.return) {
             $(".btnAjaxClose").html('&times;');
-            $('.alerta').addClass(data.return[0]);
-            $('.icones').addClass(data.return[1]);
-            $('.titulo').html(data.return[2]);
-            $('.result').html(data.return[3]);
+            $('.alerta').addClass(response.return[0]);
+            $('.icones').addClass(response.return[1]);
+            $('.titulo').html(response.return[2]);
+            $('.result').html(response.return[3]);
 
             closeBox();
         }
@@ -133,27 +135,27 @@ $(function() {
 
     }
 
-    function clearFields(data)
+    function clearFields(response)
     {
-        if (data.clearFields) {
+        if (response.clearFields) {
             form.each(function() {
                 this.reset();
             });
         }
     }
 
-    function redirect(data)
+    function redirect(response)
     {
-        if (data.redirect) {
+        if (response.redirect) {
             window.setTimeout(function() {
-                window.location.href = BASE + data.redirect[0];
-            }, data.redirect[1]);
+                window.location.href = BASE + response.redirect[0];
+            }, response.redirect[1]);
         }
     }
 
-    function deleted(data, tr)
+    function deleted(response, tr)
     {
-        if (data.deleted) {
+        if (response.deleted) {
             tr.fadeOut(400, function() {
                 tr.remove();
             });
