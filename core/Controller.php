@@ -4,7 +4,7 @@ class Controller
 {
 
     protected $request;
-    private $pathView = 'views/';
+    private $viewPath = 'views/';
 
     /**
      * Controller constructor.
@@ -32,7 +32,7 @@ class Controller
     public function loadView($viewName, $viewData = array())
     {
         extract($viewData);
-        include 'views/' . $viewName . '.php';
+        include $this->viewPath . $viewName . '.php';
     }
 
     /**
@@ -42,7 +42,7 @@ class Controller
      */
     public function loadTemplate($viewName, $viewData = array(), $templateName = 'template')
     {
-        include "views/{$templateName}.php";
+        include $this->viewPath . $templateName . '.php';
     }
 
     /**
@@ -53,8 +53,6 @@ class Controller
      */
     public function loadViewInTemplate($viewName, $viewData)
     {
-        extract($viewData);
-        include 'views/' . $viewName . '.php';
+        return $this->loadView($viewName, $viewData);
     }
-
 }
