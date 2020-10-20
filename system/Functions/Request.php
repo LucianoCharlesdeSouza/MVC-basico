@@ -7,7 +7,7 @@ if (!function_exists('requestValue')) {
 
     function requestValue($name)
     {
-        return (isset($_REQUEST[$name])) ? $_REQUEST[$name] : '';
+        return ($_REQUEST[$name]) ?? '';
     }
 
 }
