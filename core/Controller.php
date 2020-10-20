@@ -4,6 +4,7 @@ class Controller
 {
 
     protected $request;
+    private $pathView = 'views/';
 
     /**
      * Controller constructor.
