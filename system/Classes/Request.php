@@ -19,7 +19,7 @@ class Request
      */
     public function __construct()
     {
-        $this->requestType = ($_SERVER['REQUEST_METHOD'] == 'POST') ? $_POST : $_GET;
+        $this->requestType = ($_SERVER['REQUEST_METHOD'] === 'POST') ? $_POST : $_GET;
     }
 
     /**
@@ -29,10 +29,8 @@ class Request
      */
     public function postAll()
     {
-        $array = $this->stripTags(filter_input_array(INPUT_POST, FILTER_SANITIZE_MAGIC_QUOTES));
-        $array = array_map('trim', $array);
-
-        return $array;
+        $all = $this->stripTags(filter_input_array(INPUT_POST, FILTER_SANITIZE_STRIPPED));
+        return array_map('trim', $all);
     }
 
     /**
@@ -42,10 +40,8 @@ class Request
      */
     public function getAll()
     {
-        $array = $this->stripTags(filter_input_array(INPUT_GET, FILTER_SANITIZE_MAGIC_QUOTES));
-        $array = array_map('trim', $array);
-
-        return $array;
+        $all = $this->stripTags(filter_input_array(INPUT_GET, FILTER_SANITIZE_STRIPPED));
+        return array_map('trim', $all);
     }
 
     /**
@@ -58,12 +54,7 @@ class Request
      */
     public function post($field, $type = FILTER_DEFAULT)
     {
-
-        if (filter_input(INPUT_POST, $field) != null) {
-
-            return addslashes(trim(filter_input(INPUT_POST, $field, $type)));
-        }
-        return false;
+        return filter_input(INPUT_POST, $field, $type) ?? false;
     }
 
     /**
@@ -76,12 +67,7 @@ class Request
      */
     public function get($field, $type = FILTER_DEFAULT)
     {
-
-        if (filter_input(INPUT_POST, $field) != null) {
-
-            return addslashes(trim(filter_input(INPUT_GET, $field, $type)));
-        }
-        return false;
+        return filter_input(INPUT_GET, $field, $type) ?? false;
     }
 
     /**
@@ -92,7 +78,7 @@ class Request
      */
     public function isEmpty($field)
     {
-        return (empty($field)) ? true : false;
+        return empty($field);
     }
 
     /**
@@ -153,8 +139,9 @@ class Request
         $data = $this->all();
 
         foreach ($fields as $field) {
-            if (isset($data[$field]))
+            if (isset($data[$field])) {
                 unset($data[$field]);
+            }
         }
 
         return $data;
@@ -167,7 +154,7 @@ class Request
      */
     public function file($field)
     {
-        return isset($_FILES[$field]) ? $_FILES[$field] : false;
+        return ($_FILES[$field]) ?? false;
     }
 
     /**
@@ -178,7 +165,7 @@ class Request
      */
     public function hasFile($field)
     {
-        return (isset($_FILES[$field]) && $_FILES[$field]['name'] != '' );
+        return (isset($_FILES[$field]) && $_FILES[$field]['name'] != '');
     }
 
     /**
@@ -239,19 +226,22 @@ class Request
      * @param bool $invert
      * @return mixed
      */
-    public function stripTags($text, $tags = '', $invert = FALSE)
+    public function stripTags($text, $tags = '', $invert = false)
     {
 
         preg_match_all('/<(.+?)[\s]*\/?[\s]*>/si', trim($tags), $tags);
+
+        var_dump($tags);
         $tags = array_unique($tags[1]);
 
-        if (is_array($tags) AND count($tags) > 0) {
-            if ($invert == FALSE) {
+        if (is_array($tags) and count($tags) > 0) {
+            if ($invert == false) {
                 return preg_replace('@<(?!(?:' . implode('|', $tags) . ')\b)(\w+)\b.*?>.*?</\1>@si', '', $text);
-            } else {
-                return preg_replace('@<(' . implode('|', $tags) . ')\b.*?>.*?</\1>@si', '', $text);
             }
-        } elseif ($invert == FALSE) {
+            return preg_replace('@<(' . implode('|', $tags) . ')\b.*?>.*?</\1>@si', '', $text);
+        }
+        
+        if ($invert == false) {
             return preg_replace('@<(\w+)\b.*?>.*?</\1>@si', '', $text);
         }
         return $text;
@@ -261,5 +251,4 @@ class Request
     {
         return ($request == $_POST) ? INPUT_POST : INPUT_GET;
     }
-
 }
