@@ -28,6 +28,11 @@ class Upload
     private $path; //caminho onde será salvo a imagem
     private $error;
 
+    public function getAllowed()
+    {
+        return $this->allowed;
+    }
+
     public function set()
     {
         return $this;
@@ -39,9 +44,8 @@ class Upload
      */
     public function jpeg()
     {
-        array_push($this->allowed, 'image/jpeg');
-        array_push($this->allowed, 'image/jpg');
-        array_push($this->allowed, 'image/pjpeg');
+        $this->allowed = array_merge(['image/jpeg', 'image/jpg', 'image/pjpeg'],$this->allowed);
+
         return $this;
     }
 
@@ -51,8 +55,8 @@ class Upload
      */
     public function png()
     {
-        array_push($this->allowed, 'image/png');
-        array_push($this->allowed, 'image/x-png');
+        $this->allowed = array_merge(['image/png', 'image/x-png'],$this->allowed);
+
         return $this;
     }
 
@@ -62,7 +66,8 @@ class Upload
      */
     public function gif()
     {
-        array_push($this->allowed, 'image/gif');
+        $this->allowed = array_merge(['image/gif'],$this->allowed);
+
         return $this;
     }
 
@@ -72,7 +77,8 @@ class Upload
      */
     public function bmp()
     {
-        array_push($this->allowed, 'image/bmp');
+        $this->allowed = array_merge(['image/bmp'],$this->allowed);
+
         return $this;
     }
 
@@ -82,7 +88,8 @@ class Upload
      */
     public function svg()
     {
-        array_push($this->allowed, 'image/svg+xml');
+        $this->allowed = array_merge(['image/svg+xml'],$this->allowed);
+
         return $this;
     }
 
@@ -92,7 +99,8 @@ class Upload
      */
     public function icon()
     {
-        array_push($this->allowed, 'image/x-icon');
+        $this->allowed = array_merge(['image/x-icon'],$this->allowed);
+
         return $this;
     }
 
@@ -102,7 +110,8 @@ class Upload
      */
     public function pdf()
     {
-        array_push($this->allowed, 'application/pdf');
+        $this->allowed = array_merge(['application/pdf'],$this->allowed);
+
         return $this;
     }
 
@@ -112,7 +121,8 @@ class Upload
      */
     public function xml()
     {
-        array_push($this->allowed, 'application/xml');
+        $this->allowed = array_merge(['application/xml'],$this->allowed);
+
         return $this;
     }
 
@@ -122,8 +132,8 @@ class Upload
      */
     public function excel()
     {
-        array_push($this->allowed, 'application/vnd.ms-excel');
-        array_push($this->allowed, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        $this->allowed = array_merge(['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],$this->allowed);
+
         return $this;
     }
 
@@ -133,8 +143,8 @@ class Upload
      */
     public function doc()
     {
-        array_push($this->allowed, 'application/msword');
-        array_push($this->allowed, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+        $this->allowed = array_merge(['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],$this->allowed);
+
         return $this;
     }
 
@@ -144,8 +154,8 @@ class Upload
      */
     public function zip()
     {
-        array_push($this->allowed, 'application/octet-stream');
-        array_push($this->allowed, 'application/zip');
+        $this->allowed = array_merge(['application/zip', 'application/octet-stream'],$this->allowed);
+
         return $this;
     }
 
@@ -155,8 +165,8 @@ class Upload
      */
     public function rar()
     {
-        array_push($this->allowed, 'application/octet-stream');
-        array_push($this->allowed, 'application/x-rar-compressed');
+        $this->allowed = array_merge(['application/octet-stream', 'application/x-rar-compressed'],$this->allowed);
+
         return $this;
     }
 
@@ -166,7 +176,8 @@ class Upload
      */
     public function html()
     {
-        array_push($this->allowed, 'text/html');
+        $this->allowed = array_merge(['text/html'],$this->allowed);
+
         return $this;
     }
 
@@ -176,7 +187,8 @@ class Upload
      */
     public function mp4()
     {
-        array_push($this->allowed, 'video/mp4');
+        $this->allowed = array_merge(['video/mp4'],$this->allowed);
+
         return $this;
     }
 
@@ -196,7 +208,8 @@ class Upload
      */
     public function wav()
     {
-        array_push($this->allowed, 'audio/x-wav');
+        $this->allowed = array_merge(['audio/x-wav'],$this->allowed);
+
         return $this;
     }
 
@@ -206,7 +219,8 @@ class Upload
      */
     public function rtf()
     {
-        array_push($this->allowed, 'application/rtf');
+        $this->allowed = array_merge(['application/rtf'],$this->allowed);
+
         return $this;
     }
 
@@ -216,7 +230,8 @@ class Upload
      */
     public function css()
     {
-        array_push($this->allowed, 'text/css');
+        $this->allowed = array_merge(['text/css'],$this->allowed);
+
         return $this;
     }
 
@@ -591,7 +606,7 @@ class Upload
                 $rotation = (function_exists('exif_read_data') && exif_imagetype($this->file['tmp_name']) == 1 ? @exif_read_data($this->file['tmp_name']) : null);
                 $this->imageCrop = imagecreatefromgif($this->file['tmp_name']);
                 break;
-            default :
+            default:
                 $this->imageCrop = null;
                 break;
         endswitch;
@@ -609,18 +624,18 @@ class Upload
                 case 8:
                     $this->imageCrop = imagerotate($this->imageCrop, 90, 0);
                     break;
-                default :
+                default:
                     $this->imageCrop = $this->imageCrop;
                     break;
             }
         }
-        if (!$this->imageCrop):
+        if (!$this->imageCrop) :
             $this->error = 'Campo vazio ou Tipo de arquivo inválido, envie imagens JPG/PNG/GIF!';
             return false;
-        else:
+        else :
             $x = imagesx($this->imageCrop);
             $y = imagesy($this->imageCrop);
-            $imageCropX = ( $this->width < $x ? $this->width : $x );
+            $imageCropX = ($this->width < $x ? $this->width : $x);
             $imageCropH = ($imageCropX * $y) / $x;
             $NewimageCrop = imagecreatetruecolor($imageCropX, $imageCropH);
             imagealphablending($NewimageCrop, false);
@@ -640,15 +655,14 @@ class Upload
                     imagegif($NewimageCrop, $this->path . $this->newNameFile);
                     break;
             endswitch;
-            if (!$NewimageCrop):
+            if (!$NewimageCrop) :
                 $this->error = 'Campo vazio ou Tipo de arquivo inválido, envie imagens JPG/PNG/GIF!';
                 return false;
-            else:
+            else :
                 $this->error = null;
             endif;
             imagedestroy($this->imageCrop);
             imagedestroy($NewimageCrop);
         endif;
     }
-
 }
