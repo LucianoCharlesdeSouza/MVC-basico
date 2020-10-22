@@ -28,7 +28,7 @@ class Session
      */
     public static function get($name)
     {
-        return (self::has($name)) ? $_SESSION[$name] : null;
+        return (static::has($name)) ? $_SESSION[$name] : null;
     }
 
     /**
@@ -47,19 +47,28 @@ class Session
      */
     public static function has($name)
     {
-        return ( isset($_SESSION[$name]) ) ? true : false;
+        return (isset($_SESSION[$name]));
     }
 
     /**
-     * Método que recebe um nome de sessão para desfazer ou destruir a mesma
+     * Método que recebe um nome de sessão e a desfaz
      * @param string $name
      */
-    public static function destroy($name = '')
+    public static function unset($name = '')
     {
-        if ($name != '')
+        if (!empty($name)) {
             unset($_SESSION[$name]);
-        else
-            session_destroy();
+        }
+    }
+
+    /**
+     * Método que destruir a sessão
+     *
+     * @return void
+     */
+    public static function destroy()
+    {
+        session_destroy();
     }
 
     /**
@@ -116,7 +125,7 @@ class Session
      */
     public static function hasFlash($name)
     {
-        return ( isset($_SESSION['SESSION_FLASH'][$name]) ) ? true : false;
+        return ( isset($_SESSION['SESSION_FLASH'][$name]) );
     }
 
     /**
@@ -216,5 +225,4 @@ class Session
         static::setFlash('alert_msg', $msg);
         (isset($httpCode)) ? static::setFlash('httpCode', $httpCode) : '';
     }
-
 }
