@@ -12,14 +12,14 @@ class MailSender
 {
 
     private $de;
-    private $para = null;
+    private $para = [];
     private $emailRecusado;
     private $tipo = "text/plain";
     private $assunto;
     private $mensagem;
     private $cabecalhos;
     private $prioridade = 3;
-    private $responderPara = null;
+    private $responderPara = [];
     private $msgError;
 
     /**
@@ -53,11 +53,7 @@ class MailSender
      */
     public function setDe($de)
     {
-        if (Helpers::isMail($de)) {
-            $this->de = $de;
-        } else {
-            $this->msgError = "E-mail passado não é válido!";
-        }
+        $this->de = $de;
     }
 
     /**
@@ -65,11 +61,13 @@ class MailSender
      */
     private function getDe()
     {
-        if ($this->de) {
+        if (Helpers::isMail($this->de)) {
             return $this->de;
-        } else {
-            return false;
         }
+
+        $this->msgError = "E-mail passado não é válido!";
+
+        return false;
     }
 
     /**
@@ -77,44 +75,27 @@ class MailSender
      */
     public function setPara($para)
     {
-        if (is_array($para)) {
-            if (count($para) > 1) {
-                foreach ($para as $email) {
-                    if (Helpers::isMail($email)) {
-                        $this->para = $this->para . $email . ",";
-                    } else {
-                        $this->msgError = "<br/>" . $this->emailRecusado . $email . "<br/>";
-                    }
-                }
-            } else {
-                $this->para = $para[0];
+        foreach ($para as $email) {
+            if (Helpers::isMail($email)) {
+                $this->para[] =  $email;
             }
-        } else {
-            $this->msgError = "O método setPara só aceita <strong>array</strong>";
         }
     }
 
-    private function getPara()
+    public function getPara()
     {
-        if ($this->para != null) {
-            return rtrim($this->para, ',');
-        } else {
-            return $this->msgError;
-        }
+        $para = rtrim(implode(',', $this->para), ',');
+        return (!empty($para)) ? $para : false;
     }
 
     public function setAssunto($assunto)
     {
-        if (is_string($assunto)) {
-            $this->assunto = trim($assunto);
-        } else {
-            $this->msgError = "Você de passar uma <strong>STRING</strong> como parâmetro!";
-        }
+        $this->assunto = trim($assunto);
     }
 
     private function getAssunto()
     {
-        return $this->assunto;
+        return ($this->assunto) ?? false;
     }
 
     public function setMensagem($mensagem)
@@ -124,16 +105,12 @@ class MailSender
 
     private function getMensagem()
     {
-        return $this->mensagem;
+        return ($this->mensagem) ?? false;
     }
 
     public function setPrioridade($prioridade)
     {
-        if (is_int($prioridade)) {
-            $this->prioridade = $prioridade;
-        } else {
-            $this->msgError = "Você deve passar um valor <strong>INTEIRO</strong> como parâmetro!";
-        }
+        $this->prioridade = $prioridade;
     }
 
     private function getPrioridade()
@@ -143,43 +120,29 @@ class MailSender
 
     public function setResponderPara($para)
     {
-        if (is_array($para)) {
-            if (count($para) > 1) {
-                foreach ($para as $email) {
-                    if (Helpers::isMail($email)) {
-                        $this->responderPara = $this->responderPara . $email . ",";
-                    } else {
-                        $this->msgError = "<br/>" . $this->emailRecusado . $email . "<br/>";
-                    }
-                }
-            } else {
-                $this->responderPara = $para[0];
+        foreach ($para as $email) {
+            if (Helpers::isMail($email)) {
+                $this->responderPara[] = $email;
             }
-        } else {
-            $this->msgError = "O método setResponderPara só aceita <strong>array</strong>";
         }
     }
 
     private function getResponderPara()
     {
-        if ($this->responderPara != null) {
-            return rtrim($this->responderPara, ',');
-        } else {
-            return $this->getDe();
-        }
+        return rtrim(implode(',', $this->responderPara), ',');
     }
 
     private function getCabecalhos()
     {
         return $this->cabecalhos = "From:" . $this->getDe() . "\r\n" .
-                "Reply-To:" . $this->getResponderPara() . "\r\n" .
-                "X-Mailer:PHP/" . phpversion() . "\r\n" .
-                "Erros-To:" . $this->getDe() . "\r\n" .
-                "Return-Path:" . $this->getDe() . "\r\n" .
-                "Content-Type:" . $this->getTipoEmail() . "; charset='utf-8'" . "\r\n" .
-                "Date:" . date("r(T)") . "\r\n" .
-                "X-Priority:" . $this->getPrioridade() . "\r\n" .
-                "MIME-Version:1.1";
+            "Reply-To:" . $this->getResponderPara() . "\r\n" .
+            "X-Mailer:PHP/" . phpversion() . "\r\n" .
+            "Erros-To:" . $this->getDe() . "\r\n" .
+            "Return-Path:" . $this->getDe() . "\r\n" .
+            "Content-Type:" . $this->getTipoEmail() . "; charset='utf-8'" . "\r\n" .
+            "Date:" . date("r(T)") . "\r\n" .
+            "X-Priority:" . $this->getPrioridade() . "\r\n" .
+            "MIME-Version:1.1";
     }
 
     public function getError()
@@ -187,17 +150,8 @@ class MailSender
         return $this->msgError;
     }
 
-    public function Enviar()
+    public function enviar()
     {
-        if (!$this->getDe()) {
-            return false;
-        } else {
-            if (mail($this->getPara(), $this->getAssunto(), $this->getMensagem(), $this->getCabecalhos())) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        return mail($this->getPara(), $this->getAssunto(), $this->getMensagem(), $this->getCabecalhos());
     }
-
 }
