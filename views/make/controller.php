@@ -87,7 +87,7 @@
                 <a class="text-muted" style="float:left;" href="<?php echo base_url(); ?>">Voltar ao projeto</a>
                 <a class="text-muted" style="float:right;" href="<?php echo base_url("/make"); ?>">Voltar ao make</a>
             </p>
-            <p class="text-center mt-5 mb-3 text-muted">&copy; My App in MVC 2017-2018</p>
+            <p class="text-center mt-5 mb-3 text-muted">&copy; My App in MVC 2018-<?php echo date('Y');?></p>
         </form>
         <script src="<?php echo base_url("/assets/js/jquery.js"); ?>"></script>
         <script src="<?php echo base_url("/assets/js/bootstrap.min.js"); ?>"></script>
