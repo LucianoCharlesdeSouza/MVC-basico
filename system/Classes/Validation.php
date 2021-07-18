@@ -75,6 +75,18 @@ class Validation
             case 'string':
                 $this->string($name, $val);
                 break;
+            case 'url':
+                $this->url($name, $val);
+                break;                
+            case 'uri':
+                $this->uri($name, $val);
+                break;    
+            case 'date':
+                $this->date($name, $val);
+                break;                
+            case 'money':
+                $this->money($name, $val);
+                break;                             
         }
     }
 
