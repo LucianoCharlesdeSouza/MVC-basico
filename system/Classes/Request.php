@@ -231,7 +231,6 @@ class Request
 
         preg_match_all('/<(.+?)[\s]*\/?[\s]*>/si', trim($tags), $tags);
 
-        var_dump($tags);
         $tags = array_unique($tags[1]);
 
         if (is_array($tags) and count($tags) > 0) {
